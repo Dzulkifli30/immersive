@@ -19,6 +19,7 @@ class UserSeeder extends Seeder
         $userObj->email = 'user@gmail.com';
         $userObj->password = Hash::make('123456789');
         $userObj->role = 0;
+        $userObj->verified = true;
         $userObj->save();
 
         $adminObj = new User();
@@ -26,6 +27,7 @@ class UserSeeder extends Seeder
         $adminObj->email = 'admin@gmail.com';
         $adminObj->password = Hash::make('123456789');
         $adminObj->role = 1;
+        $adminObj->verified = true;
         $adminObj->save();
 
         $superAdminObj = new User();
@@ -33,6 +35,7 @@ class UserSeeder extends Seeder
         $superAdminObj->email = 'superadmin@gmail.com';
         $superAdminObj->password = Hash::make('123456789');
         $superAdminObj->role = 2;
+        $superAdminObj->verified = true;
         $superAdminObj->save();
 
     }

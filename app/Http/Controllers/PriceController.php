@@ -77,10 +77,10 @@ class PriceController extends Controller
         ]);
 
         //get product by ID
-        $feature = Pricing::findOrFail($id);
+        $faq = Pricing::findOrFail($id);
 
         //check if image is uploaded
-        $feature->update([
+        $faq->update([
             'jenis'     => $request->jenis,
             'harga'     => $request->harga,
             'isi'   => $request->isi

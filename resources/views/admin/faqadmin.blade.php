@@ -1,7 +1,7 @@
 @extends('layouts.root')
 
 @section('title')
-Table User - Super Admin
+Faq - Admin
 @endsection
 
 @section('content')
@@ -193,6 +193,9 @@ Table User - Super Admin
                   @endforeach
                 </tbody>
               </table>
+              <div class="flex justify-center mt-5">
+                {{ $faq->links('pagination.custom') }}
+              </div>
             </div>
           </div>
         </div>
@@ -215,17 +218,13 @@ Table User - Super Admin
       <hr>
       <div class="p-6">
         <div class="mb-5">
-          <label for="jenis" class="block mb-2 text-base font-medium text-gray-900 ">Masukan Jenis</label>
-          <input type="text" id="jenis" name="jenis" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required />
+          <label for="pertanyaan" class="block mb-2 text-base font-medium text-gray-900 ">Masukan Pertanyaan</label>
+          <input type="text" id="pertanyaan" name="pertanyaan" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required />
         </div>
         <div class="mb-5">
-          <label for="harga" class="block mb-2 text-base font-medium text-gray-900 ">Masukan Harga setelah 3 digit</label>
-          <input type="number" id="harga" name="harga" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="50 untuk 50.000" required />
-        </div>
-        <div class="mb-5">
-          <label for="isi" class="block mb-2 text-base font-medium text-gray-900 ">Masukan isi</label>
+          <label for="isi" class="block mb-2 text-base font-medium text-gray-900 ">Masukan Jawaban</label>
           <textarea id="isi" name="isi" rows="4" class="block p-2.5 w-full text-base text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-            placeholder="Masukan Isi" require></textarea>
+            placeholder="Masukan Jawaban" require></textarea>
         </div>
         <button type="submit" class="text-white bg-gradient-to-r from-lime-500 via-green-500 to-emerald-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-base w-full sm:w-auto px-5 py-2.5 text-center">Tambah</button>
       </div>

@@ -46,7 +46,7 @@
     <!-- popup login -->
     <div id="popup-login" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-50">
         <div
-            class="max-h-[calc(100vh-5em)] h-fit w-1/2 max-w-screen-sm scale-90 overflow-y-auto overscroll-contain rounded-2xl bg-white  text-black shadow-2xl transition"
+            class="max-h-[calc(100vh-5em)] h-fit w-1/2 max-w-md scale-90 overflow-y-auto overscroll-contain rounded-2xl bg-white  text-black shadow-2xl transition"
             for="">
             <div class="flex items-center justify-between p-3">
                 <h3 class="text-lg font-light">Login</h3>
@@ -67,8 +67,8 @@
                     <div class="flex items-start mb-5">
                         <div class="flex items-center h-5">
                             <input id="remember_me" type="checkbox" name="remember" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
+                            <label for="remember" class="ms-2 text-base font-medium text-gray-900">Remember me</label>
                         </div>
-                        <label for="remember" class="ms-2 text-base font-medium text-gray-900">Remember me</label>
                     </div>
                     <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-base w-full sm:w-auto px-5 py-2.5 text-center">Login</button>
                 </div>

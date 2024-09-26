@@ -209,7 +209,7 @@ Testimoni - Admin
                                 </tbody>
                             </table>
                             <div class="flex justify-center mt-5">
-                                {{ $testimoni->links() }}
+                                {{ $testimoni->links('pagination.custom') }}
                             </div>
                         </div>
                     </div>

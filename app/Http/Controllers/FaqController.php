@@ -12,7 +12,7 @@ class FaqController extends Controller
      */
     public function index()
     {
-        $faq = Faq::all();
+        $faq = Faq::first()->paginate(5);
 
         return view('admin.faqadmin', compact('faq'));
     }
@@ -30,7 +30,17 @@ class FaqController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'pertanyaan'     => 'required',
+            'isi'     => 'required',
+        ]);
+
+        Faq::create([
+            'pertanyaan'     => $request->pertanyaan,
+            'isi'     => $request->isi,
+        ]);
+
+        return redirect()->route('faqs.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
 
     /**
@@ -46,7 +56,10 @@ class FaqController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $faq = Faq::findOrFail($id);
+
+        //render view with faq
+        return view('admin.faqedit', compact('faq'));
     }
 
     /**
@@ -54,7 +67,22 @@ class FaqController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'pertanyaan'     => 'required',
+            'isi'     => 'required',
+        ]);
+
+        //get product by ID
+        $faq = Faq::findOrFail($id);
+
+        //check if image is uploaded
+        $faq->update([
+            'pertanyaan'     => $request->pertanyaan,
+            'isi'     => $request->isi,
+        ]);
+
+        //redirect to index
+        return redirect()->route('faqs.index')->with(['success' => 'Data Berhasil Diubah!']);
     }
 
     /**

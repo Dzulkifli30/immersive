@@ -95,37 +95,51 @@ $dashboardRoute = 'dashboard';
             <li class="w-full mt-4">
                 <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase opacity-60">Landing Pages</h6>
             </li>
-            <li class="mt-0.5 w-full">
-                <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors {{ Request::routeIs('header.index') ? 'shadow-soft-xl rounded-lg bg-white font-semibold text-slate-700' : '' }}" href="{{route('header.index')}}">
-                    <div class="{{ Request::routeIs('header.index') ? 'bg-gradient-to-tl from-purple-700 to-pink-500 text-white' : 'text-slate-800' }} shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
-                        <i class="fa fa-header" aria-hidden="true"></i>
+            <li class="my-1 w-10/12 bg-white rounded-lg mx-auto">
+                <button onclick="toggleFaq('landing')" class="py-2.5 text-normal ease-nav-brand my-0 flex items-center justify-between whitespace-nowrap w-full px-4 transition-colors {{ Request::routeIs('header.index') || Request::routeIs('features.index') || Request::routeIs('testimoni.index') || Request::routeIs('price.index') ? 'bg-gradient-to-tl from-purple-700 to-pink-500' : 'bg-blue-500' }} text-white rounded-lg">
+                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Landing Page</span>
+                    <div class="mr-2 flex h-7 w-7 items-center justify-center rounded-lg text-white bg-center text-center xl:p-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="white" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                        </svg>
                     </div>
-                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Header</span>
-                </a>
-            </li>
-            <li class="mt-0.5 w-full">
-                <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors {{ Request::routeIs('features.index') ? 'shadow-soft-xl rounded-lg bg-white font-semibold text-slate-700' : '' }}" href="{{route('features.index')}}">
-                    <div class="{{ Request::routeIs('features.index') ? 'bg-gradient-to-tl from-purple-700 to-pink-500 text-white' : 'text-slate-800' }} shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
-                        <i class="fa fa-plus-square" aria-hidden="true"></i>
-                    </div>
-                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Features</span>
-                </a>
-            </li>
-            <li class="mt-0.5 w-full">
-                <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors {{ Request::routeIs('testimoni.index') ? 'shadow-soft-xl rounded-lg bg-white font-semibold text-slate-700' : '' }}" href="{{route('testimoni.index')}}">
-                    <div class="{{ Request::routeIs('testimoni.index') ? 'bg-gradient-to-tl from-purple-700 to-pink-500 text-white' : 'text-slate-800' }} shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
-                        <i class="fa fa-comment" aria-hidden="true"></i>
-                    </div>
-                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Testimoni</span>
-                </a>
-            </li>
-            <li class="mt-0.5 w-full">
-                <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors {{ Request::routeIs('price.index') ? 'shadow-soft-xl rounded-lg bg-white font-semibold text-slate-700' : '' }}" href="{{route('price.index')}}">
-                    <div class="{{ Request::routeIs('price.index') ? 'bg-gradient-to-tl from-purple-700 to-pink-500 text-white' : 'text-slate-800' }} shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
-                        <i class="fa fa-usd" aria-hidden="true"></i>
-                    </div>
-                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Price List</span>
-                </a>
+                </button>
+                <div id="landing" class="max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                    <ul>
+                        <li class="mt-0.5 w-full">
+                            <a class="py-2.7 text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap px-4 transition-colors {{ Request::routeIs('header.index') ? 'shadow-soft-xl rounded-lg bg-gray-50 font-semibold text-slate-700' : '' }}" href="{{route('header.index')}}">
+                                <div class="{{ Request::routeIs('header.index') ? 'bg-gradient-to-tl from-purple-700 to-pink-500 text-white' : 'text-slate-800' }} shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
+                                    <i class="fa fa-header" aria-hidden="true"></i>
+                                </div>
+                                <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Header</span>
+                            </a>
+                        </li>
+                        <li class="mt-0.5 w-full">
+                            <a class="py-2.7 text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap px-4 transition-colors {{ Request::routeIs('features.index') ? 'shadow-soft-xl rounded-lg bg-gray-50 font-semibold text-slate-700' : '' }}" href="{{route('features.index')}}">
+                                <div class="{{ Request::routeIs('features.index') ? 'bg-gradient-to-tl from-purple-700 to-pink-500 text-white' : 'text-slate-800' }} shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
+                                    <i class="fa fa-plus-square" aria-hidden="true"></i>
+                                </div>
+                                <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Features</span>
+                            </a>
+                        </li>
+                        <li class="mt-0.5 w-full">
+                            <a class="py-2.7 text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap px-4 transition-colors {{ Request::routeIs('testimoni.index') ? 'shadow-soft-xl rounded-lg bg-gray-50 font-semibold text-slate-700' : '' }}" href="{{route('testimoni.index')}}">
+                                <div class="{{ Request::routeIs('testimoni.index') ? 'bg-gradient-to-tl from-purple-700 to-pink-500 text-white' : 'text-slate-800' }} shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
+                                    <i class="fa fa-comment" aria-hidden="true"></i>
+                                </div>
+                                <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Testimoni</span>
+                            </a>
+                        </li>
+                        <li class="mt-0.5 w-full">
+                            <a class="py-2.7 text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap px-4 transition-colors {{ Request::routeIs('price.index') ? 'shadow-soft-xl rounded-lg bg-gray-50 font-semibold text-slate-700' : '' }}" href="{{route('price.index')}}">
+                                <div class="{{ Request::routeIs('price.index') ? 'bg-gradient-to-tl from-purple-700 to-pink-500 text-white' : 'text-slate-800' }} shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
+                                    <i class="fa fa-usd" aria-hidden="true"></i>
+                                </div>
+                                <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Price List</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </li>
             <li class="mt-0.5 w-full">
                 <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors {{ Request::routeIs('berita.index') ? 'shadow-soft-xl rounded-lg bg-white font-semibold text-slate-700' : '' }}" href="{{route('berita.index')}}">

@@ -1,7 +1,7 @@
 @extends('layouts.root')
 
 @section('title')
-Feature - Admin
+Faq - Admin
 @endsection
 
 @section('content')
@@ -19,13 +19,14 @@ Feature - Admin
           </li>
           <li class="text-sm pl-2 capitalize leading-normal text-slate-700 before:float-left before:pr-2 before:text-gray-600 before:content-['/']" aria-current="page">Landing</li>
         </ol>
-        <h6 class="mb-0 font-bold capitalize">Feature table</h6>
+        <h6 class="mb-0 font-bold capitalize">Edit Price</h6>
       </nav>
 
       <div class="flex items-center mt-2 grow sm:mt-0 sm:mr-6 md:mr-0 lg:flex lg:basis-auto">
         <div class="flex items-center md:ml-auto md:pr-4">
           <div class="relative flex flex-wrap items-stretch w-full transition-all rounded-lg ease-soft">
             <span class="text-sm ease-soft leading-5.6 absolute z-50 -ml-px flex h-full items-center whitespace-nowrap rounded-lg rounded-tr-none rounded-br-none border border-r-0 border-transparent bg-transparent py-2 px-2.5 text-center font-normal text-slate-500 transition-all">
+              <i class="fas fa-search"></i>
             </span>
             <input type="text" class="pl-8.75 text-sm focus:shadow-soft-primary-outline ease-soft w-1/100 leading-5.6 relative -ml-px block min-w-0 flex-auto rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" placeholder="Type here..." />
           </div>
@@ -138,113 +139,49 @@ Feature - Admin
       </div>
     </div>
   </nav>
-
   <!-- end Navbar -->
 
-  <!-- cards -->
+  <div class="px-10">
+    <a href="{{route('faqs.index')}}">
+      <p class="font-bold text-lg underline text-gray-700 hover:text-black">
+        < Kembali</p>
+    </a>
+  </div>
   <div class="w-full px-6 py-6 mx-auto">
-    <div class="flex flex-wrap -mx-3">
-      <div class="flex-none w-full max-w-full px-3">
-        <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
-          <div class="p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent flex justify-between">
-            <h6>Features table</h6>
-            <button onclick="showPopup('tambah-feature')" class="cursor-pointer flex p-2 m-1 rounded-md items-center bg-gradient-to-r from-lime-500 via-green-500 to-emerald-500 hover:bg-gradient-to-br text-white font-medium ">
-              <i class="fa fa-plus-circle pr-1" aria-hidden="true"></i> Tambah feature
-            </button>
-          </div>
-          <div class="flex-auto px-0 pt-0 pb-2 items-center">
-            <div class="p-0 overflow-x-auto">
-              <table class="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
-                <thead class="align-bottom">
-                  <tr>
-                    <th class="px-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Judul</th>
-                    <th class="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Isi</th>
-                    <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">icon</th>
-                    <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Action</th>
-                    <th class="px-6 py-3 font-semibold capitalize align-middle bg-transparent border-b border-gray-200 border-solid shadow-none tracking-none whitespace-nowrap text-slate-400 opacity-70"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @foreach($feature as $data)
-                  <tr>
-                    <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                      <div class=" px-4 ">
-                        <h6 class="mb-0 text-base leading-normal break-words">{{$data->judul}}</h6>
-                      </div>
-                    </td>
-                    <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                      <div class="">
-                        <h6 class="mb-0 text-sm leading-normal break-words whitespace-normal">{{$data->isi}}</h6>
-                      </div>
-                    </td>
-                    <td class="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                      <div class="px-4 flex justify-center">
-                        @if ($data->icon != null)
-                        <img src="{{ asset('/storage/uploads/'.$data->icon)}}" class="w-full max-w-12 h-full max-h-12" alt="">
-                        @else
-                        <h6 class="mb-0 text-base leading-normal">Tidak ada Icon</h6>
-                        @endif
-                      </div>
-                    </td>
-                    <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                      <div class="flex justify-center">
-                        <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('features.destroy', $data->id) }}" method="POST">
-                          @csrf
-                          @method('DELETE')
-                          <button type="submit" class=" flex p-2 m-1 rounded-md items-center bg-gradient-to-r from-red-500 to-orange-500 hover:bg-gradient-to-br hover:from-red-600 hover:to-orange-400 text-white font-medium">
-                            <i class="fa fa-trash-o pr-1" aria-hidden="true"></i> Hapus
-                          </button>
-                        </form>
-                        <a href="{{ route('features.edit', $data->id) }}" class="cursor-pointer flex p-2 m-1 rounded-md items-center bg-gradient-to-r from-yellow-400 to-amber-500 hover:bg-gradient-to-br hover:to-amber-400 text-white font-medium ">
-                          <i class="fa fa-pencil pr-1" aria-hidden="true"></i> Edit
-                        </a>
-                      </div>
-                    </td>
-                  </tr>
-                  @endforeach
-                </tbody>
-              </table>
-              <div class="flex justify-center mt-5">
-                {{ $feature->links('pagination.custom') }}
+
+    <!-- cards row 1 -->
+    <div class="items-start p-8 space-y-4">
+      <div class="flex justify-center">
+        <h2 class="text-4xl uppercase font-semibold text-gray-900 mb-4 text-center">Edit Price</h2>
+      </div>
+      <div id="form" class="lg:w-2/3 mx-auto block">
+        <div class="bg-white shadow border rounded-lg p-4">
+          <form action="{{ route('faqs.update', $faq->id) }}" method="post" enctype="multipart/form-data">
+            @csrf
+            @METHOD('PUT')
+            <div class="w-full">
+              <div class="mb-4">
+                <label for="pertanyaan" class="block text-gray-700 text-lg font-bold mb-2">Masukan Pertanyaan:</label>
+                <input type="text" id="pertanyaan" name="pertanyaan" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  placeholder="Masukkan pertanyaan" require value="{{$faq->pertanyaan}}">
+              </div>
+              <div class="mb-4">
+                <label for="isi" class="block text-gray-700 text-lg font-bold mb-2">Masukan jawaban:</label>
+                <textarea id="isi" name="isi" rows="4" class="block p-2.5 w-full text-sm text-gray-700 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="Masukan Isi" require>{{$faq->isi}}</textarea>
+              </div>
+              <div class="mb-4 w-full flex justify-center">
+                <button type="submit"
+                  class="bg-gradient-to-r from-lime-500 via-green-500 to-emerald-500 hover:bg-gradient-to-br text-white font-bold py-2 px-16 rounded focus:outline-none focus:shadow-outline">
+                  Edit Harga
+                </button>
               </div>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>
+    <!-- end cards -->
   </div>
-
-  <!-- end cards -->
 </main>
-
-<div id="tambah-feature" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-50">
-  <div
-    class="max-h-[calc(100vh-5em)] h-fit w-1/2 max-w-screen-sm scale-90 overflow-y-auto overscroll-contain rounded-2xl bg-white  text-black shadow-2xl transition"
-    for="">
-    <div class="flex items-center justify-between p-3 px-6">
-      <h3 class="text-xl font-bold">Tambah Feature</h3>
-      <button onclick="hidePopup('tambah-feature')" class="text-black font-bold px-2 py-1 rounded bg-primary-red">X</button>
-    </div>
-    <form action="{{ route('features.store') }}" method="POST" enctype="multipart/form-data">
-      @csrf
-      <hr>
-      <div class="p-6">
-        <div class="mb-5">
-          <label for="judul" class="block mb-2 text-base font-medium text-gray-900 ">Masukan Judul</label>
-          <input type="text" id="judul" name="judul" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required />
-        </div>
-        <div class="mb-5">
-          <label for="isi" class="block mb-2 text-base font-medium text-gray-900 ">Masukan isi</label>
-          <textarea id="isi" name="isi" rows="4" class="block p-2.5 w-full text-base text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-            placeholder="Masukan Isi" require></textarea>
-        </div>
-        <div class="mb-5">
-          <label for="icon" class="block mb-2 text-base font-medium text-gray-900 ">Masukan icon</label>
-          <input type="file" id="icon" name="icon" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required />
-        </div>
-        <button type="submit" class="text-white bg-gradient-to-r from-lime-500 via-green-500 to-emerald-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-base w-full sm:w-auto px-5 py-2.5 text-center">Tambah</button>
-      </div>
-    </form>
-  </div>
-</div>
 @endsection

@@ -52,6 +52,19 @@
       var profileMenu = document.getElementById('profileMenu');
       profileMenu.classList.toggle('hidden');
     });
+
+    function toggleFaq(popupId) {
+        var contentDiv = document.getElementById(popupId);
+        // var textElement = document.getElementById('text' + popupId.replace('content', ''));
+
+        // Toggle maxHeight for the accordion effect
+        if (contentDiv.style.maxHeight) {
+            contentDiv.style.maxHeight = null;
+        } else {
+            contentDiv.style.maxHeight = contentDiv.scrollHeight + "px";
+        }
+
+    }
   </script>
 </body>
 

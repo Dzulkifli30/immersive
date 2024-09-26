@@ -58,6 +58,7 @@ class HeaderController extends Controller
         $request->validate([
             'judul' => 'required',
             'subjudul' => 'required',
+            'gambar' => 'required',
         ]);
     
         $header = Headers::findOrFail($id);
@@ -70,7 +71,7 @@ class HeaderController extends Controller
             $gambar->storeAs('public/uploads', $gambar->hashName());
 
             //delete old image
-            Storage::delete('public/uploads/' . $header->gambar);
+            // Storage::delete('public/uploads/' . $header->gambar);
 
             //update product with new image
             $header->update([

@@ -32,7 +32,7 @@ class DashboardController extends Controller
     public function news() {
         // $kategori = KategoriBerita::all();
 
-        $news = Berita::latest()->paginate(4);
+        $news = Berita::all();
         $terbaru = Berita::latest()->paginate(3);
 
         return view('news', compact('news', 'terbaru'));
