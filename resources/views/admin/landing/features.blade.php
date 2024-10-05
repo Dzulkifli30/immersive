@@ -36,7 +36,7 @@ Feature - Admin
                 <a class="inline-block px-8 py-2 mb-0 mr-4 text-xs font-bold text-center uppercase align-middle transition-all bg-transparent border border-solid rounded-lg shadow-none cursor-pointer leading-pro border-fuchsia-500 ease-soft-in hover:scale-102 active:shadow-soft-xs text-fuchsia-500 hover:border-fuchsia-500 active:bg-fuchsia-500 active:hover:text-fuchsia-500 hover:text-fuchsia-500 tracking-tight-soft hover:bg-transparent hover:opacity-75 hover:shadow-none active:text-white active:hover:bg-transparent" target="_blank" href="https://www.creative-tim.com/builder/soft-ui?ref=navbar-dashboard&amp;_ga=2.76518741.1192788655.1647724933-1242940210.1644448053">Online Builder</a>
               </li> -->
           <li class="flex items-center">
-            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="block px-0 py-2 text-sm font-bold transition-all ease-nav-brand text-red-500">
+            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="block px-0 py-2 text-sm font-bold transition-all ease-nav-brand text-gray-600 hover:text-black">
               <i class="fa fa-user sm:mr-1"></i>
               <span class="hidden sm:inline">Log Out</span>
             </a>
@@ -148,7 +148,7 @@ Feature - Admin
         <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
           <div class="p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent flex justify-between">
             <h6>Features table</h6>
-            <button onclick="showPopup('tambah-feature')" class="cursor-pointer flex p-2 m-1 rounded-md items-center bg-gradient-to-r from-lime-500 via-green-500 to-emerald-500 hover:bg-gradient-to-br text-white font-medium ">
+            <button onclick="showPopup('tambah-feature')" class="cursor-pointer flex p-2 m-1 rounded-md items-center bg-[#1410EB] hover:bg-blue-700 text-white font-medium ">
               <i class="fa fa-plus-circle pr-1" aria-hidden="true"></i> Tambah feature
             </button>
           </div>
@@ -188,16 +188,16 @@ Feature - Admin
                     </td>
                     <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                       <div class="flex justify-center">
+                        <a href="{{ route('features.edit', $data->id) }}" class="cursor-pointer flex p-2 m-1 rounded-md items-center bg-[#F96D0E] hover:bg-orange-600 text-white font-medium ">
+                          <i class="fa fa-pencil pr-1" aria-hidden="true"></i> Edit
+                        </a>
                         <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('features.destroy', $data->id) }}" method="POST">
                           @csrf
                           @method('DELETE')
-                          <button type="submit" class=" flex p-2 m-1 rounded-md items-center bg-gradient-to-r from-red-500 to-orange-500 hover:bg-gradient-to-br hover:from-red-600 hover:to-orange-400 text-white font-medium">
+                          <button type="submit" class=" flex p-2 m-1 rounded-md items-center bg-gray-600 hover:bg-gray-700 text-white font-medium">
                             <i class="fa fa-trash-o pr-1" aria-hidden="true"></i> Hapus
                           </button>
                         </form>
-                        <a href="{{ route('features.edit', $data->id) }}" class="cursor-pointer flex p-2 m-1 rounded-md items-center bg-gradient-to-r from-yellow-400 to-amber-500 hover:bg-gradient-to-br hover:to-amber-400 text-white font-medium ">
-                          <i class="fa fa-pencil pr-1" aria-hidden="true"></i> Edit
-                        </a>
                       </div>
                     </td>
                   </tr>
@@ -242,7 +242,7 @@ Feature - Admin
           <label for="icon" class="block mb-2 text-base font-medium text-gray-900 ">Masukan icon</label>
           <input type="file" id="icon" name="icon" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required />
         </div>
-        <button type="submit" class="text-white bg-gradient-to-r from-lime-500 via-green-500 to-emerald-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-base w-full sm:w-auto px-5 py-2.5 text-center">Tambah</button>
+        <button type="submit" class="text-white bg-[#1410EB] hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-base w-full sm:w-auto px-5 py-2.5 text-center">Tambah</button>
       </div>
     </form>
   </div>

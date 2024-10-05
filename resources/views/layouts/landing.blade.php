@@ -46,7 +46,7 @@
     <!-- popup login -->
     <div id="popup-login" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-50">
         <div
-            class="max-h-[calc(100vh-5em)] h-fit w-1/2 max-w-md scale-90 overflow-y-auto overscroll-contain rounded-2xl bg-white  text-black shadow-2xl transition"
+            class="max-h-[calc(100vh-5em)] h-fit w-1/2 max-w-md scale-90 overflow-y-auto overscroll-contain rounded-2xl bg-white  text-black shadow-2xl transition absolute"
             for="">
             <div class="flex items-center justify-between p-3">
                 <h3 class="text-lg font-light">Login</h3>
@@ -70,6 +70,9 @@
                             <label for="remember" class="ms-2 text-base font-medium text-gray-900">Remember me</label>
                         </div>
                     </div>
+                    <div class="flex mb-5">
+                        <p class="text-sm text-gray-900">don't have account? <a href="{{ route('register') }}" class="text-blue-500 hover:text-gray-400">Register here</a></p>
+                    </div>
                     <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-base w-full sm:w-auto px-5 py-2.5 text-center">Login</button>
                 </div>
             </form>
@@ -84,6 +87,7 @@
     <script src="{{ asset('js/swiper.min.js') }}"></script> <!-- Swiper for image and text sliders -->
     <script src="{{ asset('js/jquery.magnific-popup.js') }}"></script> <!-- Magnific Popup for lightboxes -->
     <script src="{{ asset('js/scripts.js') }}"></script> <!-- Custom scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
     <script>
         // Function to show popup
         function showPopup(popupId) {

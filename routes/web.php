@@ -10,8 +10,17 @@ use App\Http\Controllers\HeaderController;
 use App\Http\Controllers\PriceController;
 use App\Http\Controllers\TestimoniController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 
-Route::get('/', [DashboardController::class, 'index'])->name('landing.home');
+Route::get('/', function () {
+    if (Auth::check()) {
+        return redirect()->route('dashboard');
+    } else {
+        return redirect()->route('landing.home');
+    }
+})->name('welcome');
+
+Route::get('home', [DashboardController::class, 'index'])->name('landing.home');
 Route::get('faq', [DashboardController::class, 'faq'])->name('landing.faq');
 Route::get('news', [DashboardController::class, 'news'])->name('landing.news');
 Route::get('news/{id}', [DashboardController::class, 'shownews'])->name('show.news');
@@ -22,6 +31,7 @@ Route::view('about', 'about')->name('landing.about');
 Route::view('shownews', 'shownews')->name('landing.shownews');
 Route::view('product', 'product')->name('landing.product');
 Route::view('gallery', 'gallery')->name('landing.gallery');
+Route::view('test', 'tes')->name('tes');
 
 Route::view('dashboard', 'customer.dashboard')
     ->middleware(['auth', 'verified', 'customer'])
@@ -30,6 +40,10 @@ Route::view('dashboard', 'customer.dashboard')
 Route::view('product-user', 'customer.productuser')
     ->middleware(['auth', 'verified', 'customer'])
     ->name('user.product');
+
+Route::view('unverified', 'unverified')
+    ->middleware('auth')
+    ->name('unverified');
 
 Route::view('dashadmin', 'admin.dashadmin')
     ->middleware(['auth', 'verified', 'admin'])

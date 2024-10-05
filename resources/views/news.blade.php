@@ -38,10 +38,10 @@ Berita - Immersive
 
 <!-- kategori -->
 <div id="kategori" class="w-full px-4 pb-16 flex justify-center mx-auto space-x-3">
-    <button class="btn px-4 py-2 rounded-full border-sky-400 border bg-white text-gray-800 font-semibold" id="btn1" onclick="filterNews('all')">all</button>
-    <button class="btn px-4 py-2 rounded-full border-sky-400 border bg-sky-500 text-white font-semibold" id="btn2" onclick="filterNews('pendidikan')">Pendidikan</button>
-    <button class="btn px-4 py-2 rounded-full border-sky-400 border bg-sky-500 text-white font-semibold" id="btn3" onclick="filterNews('teknologi')">Teknologi</button>
-    <button class="btn px-4 py-2 rounded-full border-sky-400 border bg-sky-500 text-white font-semibold" id="btn4" onclick="filterNews('sejarah')">Sejarah</button>
+    <button class="btn px-4 py-2 rounded-full border-[#1410EB] border bg-white text-[#1410EB] font-semibold" id="btn1" onclick="filterNews('all')">all</button>
+    <button class="btn px-4 py-2 rounded-full border-[#1410EB] border bg-[#1410EB] text-white font-semibold" id="btn2" onclick="filterNews('pendidikan')">Pendidikan</button>
+    <button class="btn px-4 py-2 rounded-full border-[#1410EB] border bg-[#1410EB] text-white font-semibold" id="btn3" onclick="filterNews('teknologi')">Teknologi</button>
+    <button class="btn px-4 py-2 rounded-full border-[#1410EB] border bg-[#1410EB] text-white font-semibold" id="btn4" onclick="filterNews('sejarah')">Sejarah</button>
 </div>
 
 <div id="news" class="w-full px-4 md:px-10 xl:px-28 flex justify-between items-start">
@@ -52,7 +52,7 @@ Berita - Immersive
         <div class="news-item space-y-6" data-category="{{ $data->kategori->nama }}">
             <a href="{{ route('show.news', $data->id) }}" class="w-full bg-white rounded-lg flex">
                 <div class="w-1/3">
-                    <img class="rounded-lg w-full" src="{{ $data->gambar ? asset('/storage/uploads/'.$data->gambar) : asset('images/jade.jpg') }}" alt="jade" />
+                    <img class="rounded-lg w-full" src="{{ $data->gambar ? asset('/storage/uploads/'.$data->gambar) : asset('images/foto_berita.jpg') }}" alt="jade" />
                 </div>
                 <div class="px-5 py-1 w-2/3 space-y-2">
                     <div>
@@ -80,7 +80,7 @@ Berita - Immersive
             <a href="{{ route('show.news', $data->id) }}">
                 <div class="p-5 flex space-x-2">
                     <div class="w-1/3">
-                        <img class="rounded-lg w-full h-24" src="{{ $latest->gambar ? asset('/storage/uploads/'.$latest->gambar) : asset('images/jade.jpg') }}" alt="jade">
+                        <img class="rounded-lg w-full h-24" src="{{ $latest->gambar ? asset('/storage/uploads/'.$latest->gambar) : asset('images/foto_berita.jpg') }}" alt="jade">
                     </div>
                     <div class="w-2/3">
                         <p class="mb-1 font-bold text-base text-gray-700 line-clamp-2">{{ $latest->judul }}</p>
@@ -106,12 +106,12 @@ Berita - Immersive
     buttons.forEach(button => {
         button.addEventListener('click', function() {
             // Reset warna semua tombol menjadi biru
-            buttons.forEach(btn => btn.classList.replace('bg-white', 'bg-sky-500'));
-            buttons.forEach(btn => btn.classList.replace('text-gray-800', 'text-white'));
+            buttons.forEach(btn => btn.classList.replace('bg-white', 'bg-[#1410EB]'));
+            buttons.forEach(btn => btn.classList.replace('text-[#1410EB]', 'text-white'));
 
             // Ubah tombol yang diklik menjadi merah
-            button.classList.replace('bg-sky-500', 'bg-white');
-            button.classList.replace('text-white', 'text-gray-800');
+            button.classList.replace('bg-[#1410EB]', 'bg-white');
+            button.classList.replace('text-white', 'text-[#1410EB]');
         });
     });
 

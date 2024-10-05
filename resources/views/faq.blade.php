@@ -54,7 +54,7 @@ FAQ - Immersive
             <!-- Content Div -->
             <div id="content{{ $data->id }}" class="max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
                 <div class="p-5 lg:px-14">
-                    <p id="" class="mb-3 font-normal text-gray-700">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Placeat a minus vero? Nemo deserunt laboriosam cum itaque possimus aliquam, ipsam enim iste quidem corporis modi ipsa non sequi dignissimos in.</p>
+                    <p id="" class="mb-3 font-normal text-gray-700">{{$data->isi}}</p>
                 </div>
             </div>
         </div>

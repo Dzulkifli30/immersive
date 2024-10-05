@@ -177,7 +177,7 @@ Feature - Admin
               </div>
               <div class="mb-4 w-full flex justify-center">
                 <button type="submit"
-                  class="bg-gradient-to-r from-lime-500 via-green-500 to-emerald-500 hover:bg-gradient-to-br text-white font-bold py-2 px-16 rounded focus:outline-none focus:shadow-outline">
+                  class="bg-[#1410EB] hover:bg-blue-700 text-white font-bold py-2 px-16 rounded focus:outline-none focus:shadow-outline">
                   Edit feature
                 </button>
               </div>

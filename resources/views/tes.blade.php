@@ -1,7 +1,7 @@
 @extends('layouts.root')
 
 @section('title')
-Register - daftar
+Tes - Account
 @endsection
 
 @section('content')

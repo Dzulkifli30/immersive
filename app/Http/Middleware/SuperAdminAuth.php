@@ -20,15 +20,22 @@ class SuperAdminAuth
             return redirect()->route('login');
         }
 
+        $verified=Auth::user()->verified;
         $userRole=Auth::user()->role;
-        if ($userRole==2) {
-            return $next($request);
+        if ($verified == true) {
+            if ($userRole==2) {
+                return $next($request);
+            }
+            if ($userRole==1) {
+                return redirect()->route('admin.dashboard');
+            }
+            if ($userRole==0) {
+                return redirect()->route('dashboard');
+            }
+        } else {
+            return redirect()->route('unverified');
         }
-        if ($userRole==1) {
-            return redirect()->route('admin.dashboard');
-        }
-        if ($userRole==0) {
-            return redirect()->route('dashboard');
-        }
+        
+        
     }
 }
