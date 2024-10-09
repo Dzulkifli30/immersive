@@ -44,40 +44,53 @@
 
     @include('components.footer')
     <!-- popup login -->
-    <div id="popup-login" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-50">
-        <div
-            class="max-h-[calc(100vh-5em)] h-fit w-1/2 max-w-md scale-90 overflow-y-auto overscroll-contain rounded-2xl bg-white  text-black shadow-2xl transition absolute"
-            for="">
-            <div class="flex items-center justify-between p-3">
-                <h3 class="text-lg font-light">Login</h3>
-                <button onclick="hidePopup('popup-login')" class="text-black font-bold px-2 py-1 rounded bg-primary-red">X</button>
-            </div>
-            <form action="{{ route('login') }}" method="POST" multipart>
-                <hr>
-                @csrf
-                <div class="p-6">
-                    <div class="mb-5">
-                        <label for="email" class="block mb-2 text-base font-medium text-gray-900 ">Your email</label>
-                        <input type="email" id="email" name="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="cihuy@gmail.com" required />
-                    </div>
-                    <div class="mb-5">
-                        <label for="password" class="block mb-2 text-base font-medium text-gray-900 ">Your password</label>
-                        <input type="password" id="password" name="password" autocomplete="current-password" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required />
-                    </div>
-                    <div class="flex items-start mb-5">
-                        <div class="flex items-center h-5">
-                            <input id="remember_me" type="checkbox" name="remember" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
-                            <label for="remember" class="ms-2 text-base font-medium text-gray-900">Remember me</label>
-                        </div>
-                    </div>
-                    <div class="flex mb-5">
-                        <p class="text-sm text-gray-900">don't have account? <a href="{{ route('register') }}" class="text-blue-500 hover:text-gray-400">Register here</a></p>
-                    </div>
-                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-base w-full sm:w-auto px-5 py-2.5 text-center">Login</button>
+    <div id="authentication-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-md max-h-full">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow">
+                <!-- Modal header -->
+                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+                    <h3 class="text-xl font-semibold text-gray-900">
+                        Sign in to our platform
+                    </h3>
+                    <button type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center" data-modal-hide="authentication-modal">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
                 </div>
-            </form>
+                <!-- Modal body -->
+                <div class="p-4 md:p-5">
+                    <form action="{{ route('login') }}" method="POST" multipart class="space-y-5">
+                    @csrf
+                        <div>
+                            <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Your email</label>
+                            <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="name@company.com" required />
+                        </div>
+                        <div>
+                            <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Your password</label>
+                            <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required />
+                        </div>
+                        <div class="flex justify-between">
+                            <div class="flex items-start">
+                                <div class="flex items-center h-5">
+                                    <input id="remember_me" name="remember" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
+                                </div>
+                                <label for="remember" class="ms-2 text-sm font-medium text-gray-900">Remember me</label>
+                            </div>
+                            <a href="#" class="text-sm text-blue-700 hover:underline">Lost Password?</a>
+                        </div>
+                        <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Login to your account</button>
+                        <div class="text-sm font-medium text-gray-500">
+                            Not registered? <a href="{ route('register') }}" class="text-blue-700 hover:underline">Create account</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
+
     <a href="https://wa.me/6285886587944" target="_blank" rel="noopener noreferrer" class="fixed bottom-8 right-4 bg-green-500 hover:bg-green-600 text-white h-14 w-14 rounded-full shadow-lg flex items-center justify-center transition duration-300 ease-in-out text-4xl">
         <!-- WhatsApp SVG Icon -->
         <i class="fa fa-whatsapp" aria-hidden="true"></i>

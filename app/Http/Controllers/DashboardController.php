@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Berita;
 use App\Models\Faq;
 use App\Models\Features;
+use App\Models\Gallery;
 use App\Models\Headers;
 use App\Models\KategoriBerita;
 use App\Models\Pricing;
@@ -36,6 +37,12 @@ class DashboardController extends Controller
         $terbaru = Berita::latest()->paginate(3);
 
         return view('news', compact('news', 'terbaru'));
+    }
+
+    public function gallery() {
+        $gallery = Gallery::all();
+
+        return view('gallery', compact('gallery'));
     }
 
     public function shownews(string $id)

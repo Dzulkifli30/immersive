@@ -40,7 +40,7 @@
             </ul>
             @if (Auth::user() == null)
             <span class="block lg:ml-3.5">
-                <button onclick="showPopup('popup-login')" class="text-white bg-[#1410EB] hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-bold rounded-lg text-sm px-5 py-2.5 me-2">Login</button>
+                <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" class="text-white bg-[#1410EB] hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-bold rounded-lg text-sm px-5 py-2.5 me-2" type="button">Login</button>
             </span>
             @endif
         </div> <!-- end of navbar-collapse -->

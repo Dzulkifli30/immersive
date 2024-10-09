@@ -22,6 +22,7 @@ Route::get('/', function () {
 
 Route::get('home', [DashboardController::class, 'index'])->name('landing.home');
 Route::get('faq', [DashboardController::class, 'faq'])->name('landing.faq');
+Route::get('gallery', [DashboardController::class, 'gallery'])->name('landing.gallery');
 Route::get('news', [DashboardController::class, 'news'])->name('landing.news');
 Route::get('news/{id}', [DashboardController::class, 'shownews'])->name('show.news');
 Route::get('faq/search', [DashboardController::class, 'searchfaq'])->name('search.faq');
@@ -30,7 +31,7 @@ Route::get('news/search', [DashboardController::class, 'searchnews'])->name('sea
 Route::view('about', 'about')->name('landing.about');
 Route::view('shownews', 'shownews')->name('landing.shownews');
 Route::view('product', 'product')->name('landing.product');
-Route::view('gallery', 'gallery')->name('landing.gallery');
+// Route::view('gallery', 'gallery')->name('landing.gallery');
 Route::view('test', 'tes')->name('tes');
 
 Route::view('dashboard', 'customer.dashboard')

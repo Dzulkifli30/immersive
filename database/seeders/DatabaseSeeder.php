@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call([FaqSeeder::class]);
         $this->call([KategoriBeritaSeeder::class]);
         $this->call([BeritaSeeder::class]);
+        $this->call([GallerySeeder::class]);
         // User::factory(10)->create();
         // User::factory()->create([
         //     'name' => 'Test User',
