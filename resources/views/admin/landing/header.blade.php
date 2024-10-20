@@ -175,7 +175,7 @@ Table User - Super Admin
       </div>
       <div id="form" class="lg:w-2/3 mx-auto hidden">
         <div class="bg-white shadow border rounded-lg p-4">
-          <form action="{{ route('header.update', $header->id) }}" method="post" class="lg:flex">
+          <form action="{{ route('header.update', $header->id) }}" method="post" class="lg:flex" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="lg:w-1/2 w-full flex flex-col justify-between">

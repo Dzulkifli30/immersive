@@ -72,7 +72,7 @@ Beranda - Immersive
             <hr class="border-b-2 border-gray-400 rounded-full mb-4">
             <div class="card-body">
                 <h5 class="card-title">{{$data->judul}}</h5>
-                <p class="mb-4 text-sm">{{$data->isi}}</p>
+                <p class="mb-4 text-sm line-clamp-3">{{$data->isi}}</p>
             </div>
         </div>
         @endforeach

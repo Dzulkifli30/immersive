@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
         $this->call([KategoriBeritaSeeder::class]);
         $this->call([BeritaSeeder::class]);
         $this->call([GallerySeeder::class]);
+        $this->call([UsahaSeeder::class]);
+        $this->call([BiodataSeeder::class]);
         // User::factory(10)->create();
         // User::factory()->create([
         //     'name' => 'Test User',

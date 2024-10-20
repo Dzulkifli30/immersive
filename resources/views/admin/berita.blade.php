@@ -234,7 +234,7 @@ Berita - Admin
         for="">
         <div class="flex items-center justify-between p-3 px-6">
             <h3 class="text-xl font-bold">Tambah Berita</h3>
-            <button onclick="hidePopup('tambah-berita')" class="text-black font-bold px-2 py-1 rounded bg-primary-red">X</button>
+            <button onclick="hidePopup('tambah-berita')" class="text-black font-bold px-2 py-1 rounded bg-primary-red text-xl"><i class="fa fa-times" aria-hidden="true"></i></button>
         </div>
         <form action="{{ route('berita.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -264,10 +264,12 @@ Berita - Admin
                 </div>
                 <div class="mb-5">
                     <label for="gambar" class="block mb-2 text-base font-medium text-gray-900 ">Masukan gambar</label>
-                    <input type="file" id="gambar" name="gambar" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required />
+                    <input type="file" id="gambar" name="gambar" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50" required />
                 </div>
                 <input type="hidden" name="kontributor" value="{{ Auth::user()->name }}">
-                <button type="submit" class="text-white bg-[#1410EB] hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-base w-full sm:w-auto px-5 py-2.5 text-center">Tambah</button>
+                <div class="flex justify-center">
+                    <button type="submit" class="text-white bg-[#1410EB] hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-base w-full sm:w-auto px-5 py-2.5 text-center">Tambah</button>
+                </div>
             </div>
         </form>
     </div>

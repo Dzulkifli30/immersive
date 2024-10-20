@@ -21,6 +21,7 @@ class User extends Authenticatable
         'email',
         'password',
         'type',
+        'verified',
     ];
 
     /**
@@ -44,5 +45,14 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function biodata()
+    {
+        return $this->hasOne(Biodata::class);
+    }
+    public function pemesanan()
+    {
+        return $this->hasMany(Pemesanan::class);
     }
 }

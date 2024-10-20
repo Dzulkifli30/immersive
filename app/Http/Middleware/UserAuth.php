@@ -2,9 +2,11 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Biodata;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserAuth
@@ -22,20 +24,27 @@ class UserAuth
 
         $verified=Auth::user()->verified;
         $userRole=Auth::user()->role;
-        if ($verified == true) {
-            if ($userRole==0) {
-                return $next($request);
-            }
-            if ($userRole==2) {
-                return redirect()->route('super.dashboard');
-            }
-            if ($userRole==1) {
-                return redirect()->route('admin.dashboard');
-            }
-        } else {
+        $userId = Auth::user()->id;
+
+        $biodataExists = Biodata::where('user_id', $userId)->exists();
+        
+        if ($verified == false) {
             return redirect()->route('unverified');
+            
         }
-         
+        if (!$biodataExists) {
+            return redirect()->route('biodata.create');   
+        }
+        
+        if ($userRole==0) {
+            return $next($request);
+        }
+        if ($userRole==2) {
+            return redirect()->route('super.dashboard');
+        }
+        if ($userRole==1) {
+            return redirect()->route('admin.dashboard');
+        }
         
     }
 }

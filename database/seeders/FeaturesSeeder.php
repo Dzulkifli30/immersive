@@ -14,23 +14,18 @@ class FeaturesSeeder extends Seeder
     public function run(): void
     {
         Features::create([
-            'judul' => 'Mudah digunakan',
-            'isi' => 'You sales force can use the app on any smartphone platform without compatibility issues',
+            'judul' => 'Pengalaman yang Memorable',
+            'isi' => 'Konsumen dapat berinteraksi langsung dengan produk secara virtual, seolah-olah mereka sedang menggunakan produk tersebut. Hal ini membuat mereka lebih terhubung',
             'icon' => null,
         ]);
         Features::create([
-            'judul' => 'Mudah digunakan',
-            'isi' => 'You sales force can use the app on any smartphone platform without compatibility issues',
+            'judul' => 'Visualisasi Produk yang Lebih Baik',
+            'isi' => 'Konsumen dapat melihat produk dari berbagai sudut, menguji fitur-fiturnya, dan bahkan menyesuaikan tampilan produk sesuai dengan preferensi mereka',
             'icon' => null,
         ]);
         Features::create([
-            'judul' => 'Mudah digunakan',
-            'isi' => 'You sales force can use the app on any smartphone platform without compatibility issues',
-            'icon' => null,
-        ]);
-        Features::create([
-            'judul' => 'Mudah digunakan',
-            'isi' => 'You sales force can use the app on any smartphone platform without compatibility issues',
+            'judul' => 'Interaktivitas',
+            'isi' => 'Konsumen dapat bermain game, menjawab kuis, atau mengikuti tantangan yang terkait dengan produk, sehingga meningkatkan engagement mereka.',
             'icon' => null,
         ]);
     }

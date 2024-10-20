@@ -1,7 +1,7 @@
 @extends('layouts.root')
 
 @section('title')
-Table User - Super Admin
+Booking Booth - Costumer
 @endsection
 
 @section('content')
@@ -15,18 +15,16 @@ Table User - Super Admin
         <!-- breadcrumb -->
         <ol class="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
           <li class="text-sm leading-normal">
-            <a class="opacity-50 text-slate-700" href="javascript:;">Super Admin</a>
+            <a class="opacity-50 text-slate-700" href="javascript:;">Customer</a>
           </li>
-          <!-- <li class="text-sm pl-2 capitalize leading-normal text-slate-700 before:float-left before:pr-2 before:text-gray-600 before:content-['/']" aria-current="page">Dashboard</li> -->
+          <li class="text-sm pl-2 capitalize leading-normal text-slate-700 before:float-left before:pr-2 before:text-gray-600 before:content-['/']" aria-current="page">Booking Booth</li>
         </ol>
-        <h6 class="mb-0 font-bold capitalize">UserTable</h6>
       </nav>
 
       <div class="flex items-center mt-2 grow sm:mt-0 sm:mr-6 md:mr-0 lg:flex lg:basis-auto">
         <div class="flex items-center md:ml-auto md:pr-4">
           <div class="relative flex flex-wrap items-stretch w-full transition-all rounded-lg ease-soft">
             <span class="text-sm ease-soft leading-5.6 absolute z-50 -ml-px flex h-full items-center whitespace-nowrap rounded-lg rounded-tr-none rounded-br-none border border-r-0 border-transparent bg-transparent py-2 px-2.5 text-center font-normal text-slate-500 transition-all">
-              <i class="fas fa-search"></i>
             </span>
             <input type="text" class="pl-8.75 text-sm focus:shadow-soft-primary-outline ease-soft w-1/100 leading-5.6 relative -ml-px block min-w-0 flex-auto rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" placeholder="Type here..." />
           </div>
@@ -38,7 +36,7 @@ Table User - Super Admin
               </li> -->
           <li class="flex items-center">
             <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="block px-0 py-2 text-sm font-bold transition-all ease-nav-brand text-gray-600 hover:text-black">
-              <i class="fa fa-user sm:mr-1"></i>
+              <i class="fa fa-log-out sm:mr-1"></i>
               <span class="hidden sm:inline">Log Out</span>
             </a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
@@ -142,103 +140,60 @@ Table User - Super Admin
 
   <!-- end Navbar -->
 
-  <!-- cards -->
   <div class="w-full px-6 py-6 mx-auto">
-    <div class="flex flex-wrap -mx-3">
-      <div class="flex-none w-full max-w-full px-3">
-        <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
-          <div class="p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent flex justify-between">
-            <h6>User table</h6>
-            <button onclick="showPopup('tambah-feature')" class="cursor-pointer flex p-2 m-1 rounded-md items-center bg-[#1410EB] hover:bg-blue-700 text-white font-medium ">
-              <i class="fa fa-plus-circle pr-1" aria-hidden="true"></i> Tambah User
-            </button>
-          </div>
-          <div class="flex-auto px-0 pt-0 pb-2 items-center">
-            <div class="p-0 overflow-x-auto">
-              <table class="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
-                <thead class="align-bottom">
-                  <tr>
-                    <th class="px-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Nama</th>
-                    <th class="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Email</th>
-                    <th class="px-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Role</th>
-                    <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Status</th>
-                    <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @foreach($user as $data)
-                  <tr>
-                    <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                      <div class=" px-4 ">
-                        <h6 class="mb-0 text-base leading-normal break-words">{{$data->name}}</h6>
-                      </div>
-                    </td>
-                    <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                      <div class="">
-                        <h6 class="mb-0 text-sm leading-normal break-words whitespace-normal">{{$data->email}}</h6>
-                      </div>
-                    </td>
-                    <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                      <div class="px-4">
-                        <h6 class="mb-0 text-sm leading-normal break-words whitespace-normal">
-                          <?php
-                          $dataRole = $data->role;
-                          if ($dataRole === 1) {
-                            echo "admin";
-                          } elseif ($dataRole === 2) {
-                            echo "super admin";
-                          } else {
-                            echo "pelanggan";
-                          }
-                          ?>
-                        </h6>
-                      </div>
-                    </td>
-                    <td class="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                      <div class="px-4 flex justify-center">
-                        @if ($data->verified == 1)
-                        <h6 class="mb-0 text-base font-bold text-[#1410EB] leading-normal">Verified</h6>
-                        @else
-                        <h6 class="mb-0 text-base font-bold text-[#F96D0E] leading-normal">Unverified</h6>
-                        @endif
-                      </div>
-                    </td>
-                    <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                      <div class="flex justify-center">
-                        <form action="{{ route('users.update', $data->id) }}" method="post" enctype="multipart/form-data">
-                          @csrf
-                          @method('PUT')
-                          @if ($data->verified != 1)
-                          <input type="hidden" name="verified" value="1">
-                          <button type="submit" class=" flex p-2 m-1 rounded-md items-center bg-gradient-to-r bg-green-600 hover:bg-green-500 text-white font-medium">
-                            Approved
-                          </button>
-                          @else
-                          <input type="hidden" name="verified" value="0">
-                          <button type="submit" class=" flex p-2 m-1 rounded-md items-center bg-gradient-to-r bg-red-600 hover:bg-red-500 text-white font-medium">
-                            Unapproved
-                          </button>
-                          @endif
-                        </form>
-                        <a href="{{ route('users.show', $data->id) }}" class="cursor-pointer flex p-2 m-1 rounded-md items-center bg-[#F96D0E] hover:bg-orange-600 text-white font-medium ">
-                          <i class="fa fa-info-circle pr-1" aria-hidden="true"></i> Detail
-                        </a>
-                      </div>
-                    </td>
-                  </tr>
+
+    <!-- cards row 1 -->
+    <div class="items-start p-8 space-y-4">
+      <div class="flex justify-center">
+        <h2 class="text-4xl uppercase font-semibold text-gray-900 mb-4 text-center">Pemesanan Booth</h2>
+      </div>
+      <div id="form" class="lg:w-1/2 mx-auto block">
+        <div class="bg-white shadow border rounded-lg p-8">
+          <form action="{{ route('pemesanan.store') }}" method="post" enctype="multipart/form-data">
+            @csrf
+            <div class="w-full md:space-y-8 lg:space-y-14">
+              <div class="mb-4">
+                <label for="nama_event" class="block text-gray-700 text-lg font-bold mb-2">Nama Event:</label>
+                <input type="text" id="nama_event" name="nama_event" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  placeholder="Masukkan nama event" require>
+              </div>
+              <div class="mb-4">
+                <label for="jadwal" class="block text-gray-700 text-lg font-bold mb-2">Pilih Tanggal Pemesanan:</label>
+                <div class="flex items-center">
+                  <div class="w-full space-y-2">
+                    <span class="text-gray-700">Tanggal Mulai</span>
+                    <input type="date" id="jadwal_mulai" name="jadwal_mulai" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required />
+                  </div>
+                  <span class="mx-4 text-gray-500">to</span>
+                  <div class="w-full space-y-2">
+                    <span class="text-gray-700">Tanggal Akhir</span>
+                    <input type="date" id="jadwal_berakhir" name="jadwal_berakhir" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required />
+                  </div>
+                </div>
+              </div>
+              <div class="mb-4">
+                <label for="isi" class="block text-gray-700 text-lg font-bold mb-2">Pilih Paket:</label>
+                <select id="paket" name="paket" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                  <option selected>Pilih Paket</option>
+                  @foreach($pricing as $data)
+                  <option value="{{ $data->id }}">{{ $data->jenis }} - {{ $data->harga }}.000</option>
                   @endforeach
-                </tbody>
-              </table>
-              <div class="flex justify-center mt-5">
-                {{ $user->links() }}
+                </select>
+              </div>
+              <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+              <div class="mb-4 w-full flex justify-center">
+                <button type="submit"
+                  class="bg-[#1410EB] hover:bg-blue-700 text-white font-bold py-2 px-16 rounded focus:outline-none focus:shadow-outline">
+                  Buat Pesanan
+                </button>
               </div>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>
+    <!-- end cards -->
   </div>
 
-  <!-- end cards -->
 </main>
 @endsection

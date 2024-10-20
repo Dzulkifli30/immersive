@@ -11,5 +11,10 @@ class Pricing extends Model
 
     protected $fillable = ['jenis', 'harga', 'isi'];
 
+    public function pemesanan()
+    {
+        return $this->hasMany(Pemesanan::class);
+    }
+
     use HasFactory;
 }

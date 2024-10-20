@@ -30,11 +30,11 @@
   @yield('content')
 
   @stack('scripts')
+  <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
   <script src="{{ asset('assets/js/plugins/chartjs.min.js')}}" async></script>
   <script src="{{ asset('assets/js/plugins/perfect-scrollbar.min.js')}}" async></script>
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <script src="{{ asset('assets/js/soft-ui-dashboard-tailwind.js')}}" async></script>
-  <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
   <script>
     // Function to show popup
     function showPopup(popupId) {

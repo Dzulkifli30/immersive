@@ -54,7 +54,22 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'verified'     => 'required',
+        ]);
+
+        $User = User::findOrFail($id);
+        if ($request->verified == 0) {
+            $User->update([
+                'verified'     => 1,
+            ]);
+        } else {
+            $User->update([
+                'verified'     => 0,
+            ]);
+        }
+
+        return redirect()->route('users.index')->with(['success' => 'Data Berhasil Diubah!']);
     }
 
     /**
@@ -63,5 +78,16 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function verified(string $id)
+    {
+        $User = User::findOrFail($id);
+
+        $User->update([
+            'verified'     => true,
+        ]);
+
+        return redirect()->route('users.index')->with(['success' => 'Data Berhasil Diubah!']);
     }
 }

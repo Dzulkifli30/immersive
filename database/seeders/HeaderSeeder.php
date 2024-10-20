@@ -16,7 +16,7 @@ class HeaderSeeder extends Seeder
         Headers::create([
             'judul' => 'MF Immersif',
             'subjudul' => 'butuh booth immersif dengan harga terjangkau dan mudah untuk digunakan? bisa hubungi kami lewat whatsapp hehe....',
-            'gambar' => 'images/header-smartphone.png',
+            'gambar' => 'header-smartphone.png',
         ]);
     }
 }
