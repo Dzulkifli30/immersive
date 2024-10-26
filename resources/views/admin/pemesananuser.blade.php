@@ -27,7 +27,7 @@ Booking Booth - Costumer
           <div class="relative flex flex-wrap items-stretch w-full transition-all rounded-lg ease-soft">
             <span class="text-sm ease-soft leading-5.6 absolute z-50 -ml-px flex h-full items-center whitespace-nowrap rounded-lg rounded-tr-none rounded-br-none border border-r-0 border-transparent bg-transparent py-2 px-2.5 text-center font-normal text-slate-500 transition-all">
             </span>
-            <input type="text" class="pl-8.75 text-sm focus:shadow-soft-primary-outline ease-soft w-1/100 leading-5.6 relative -ml-px block min-w-0 flex-auto rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" placeholder="Type here..." />
+            <!-- <input type="text" class="pl-8.75 text-sm focus:shadow-soft-primary-outline ease-soft w-1/100 leading-5.6 relative -ml-px block min-w-0 flex-auto rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" placeholder="Type here..." /> -->
           </div>
         </div>
         <ul class="flex flex-row justify-end pl-0 mb-0 list-none md-max:w-full">
@@ -56,8 +56,23 @@ Booking Booth - Costumer
     <div class="flex flex-wrap -mx-3">
       <div class="flex-none w-full max-w-full px-3">
         <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
-          <div class="p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent flex justify-between">
+          <div class="p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent flex justify-between gap-4">
             <h6>Tabel Pesanan Client</h6>
+            <form class="max-w-sm w-full" method="GET" action="{{ route('admin.pesanan') }}">
+              <div class="relative">
+                <input type="search" name="query" id="default-search"
+                  class="block w-full p-1 ps-5 text-md text-black border border-black rounded-lg"
+                  placeholder="Cari client/event" required />
+                <button type="submit"
+                  class="text-black absolute end-2.5 bottom-2.5 focus:ring-4 focus:outline-none focus:ring-gray-500 font-medium rounded-lg text-lg pr-2">
+                  <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M21 21l-4.35-4.35M16.65 16.65A7.45 7.45 0 1110.2 3.8a7.45 7.45 0 016.45 12.85z" />
+                  </svg>
+                </button>
+              </div>
+            </form>
           </div>
           <div class="flex-auto px-0 pt-0 pb-2 items-center">
             <div class="p-0 overflow-x-auto">
@@ -69,11 +84,20 @@ Booking Booth - Costumer
                     <th class="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Tanggal Booking</th>
                     <th class="px-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Paket</th>
                     <th class="px-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Status</th>
-                    <th class="px-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Info</th>
+                    <th class="px-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Harga</th>
+                    <th class="px-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Catatan</th>
+                    <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Info</th>
                     <!-- <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Action</th> -->
                   </tr>
                 </thead>
                 <tbody>
+                  @if ($pemesanan->isEmpty())
+                  <tr>
+                    <td colspan="6" class="text-center p-4">
+                      <h6 class="mb-0 text-lg">Tidak ada Pemesanan</h6>
+                    </td>
+                  </tr>
+                  @endif
                   @foreach($pemesanan as $data)
                   <tr class="">
                     <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
@@ -88,7 +112,9 @@ Booking Booth - Costumer
                     </td>
                     <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                       <div class="max-w-sm">
-                        <h6 class="mb-0 text-sm leading-normal break-words line-clamp-3">{{$data->jadwal_mulai}} s/d {{$data->jadwal_berakhir}}</h6>
+                        <h6 class="mb-0 text-sm leading-normal break-words line-clamp-3">
+                          {{ \Carbon\Carbon::parse($data->jadwal_mulai)->translatedFormat('d F Y') }} s/d {{ \Carbon\Carbon::parse($data->jadwal_berakhir)->translatedFormat('d F Y') }}
+                        </h6>
                       </div>
                     </td>
                     <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
@@ -106,7 +132,7 @@ Booking Booth - Costumer
                     @elseif ($data->status == 1)
                     <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                       <div class="px-4">
-                        <h6 class="mb-0 text-sm leading-normal font-bold text-green-500">Confirmed</h6>
+                        <h6 class="mb-0 text-sm leading-normal font-bold text-lime-500">Confirmed</h6>
                       </div>
                     </td>
                     @else
@@ -122,28 +148,25 @@ Booking Booth - Costumer
                         <h6 class="mb-0 text-sm leading-normal">{{ $data->total_harga}}.000</h6>
                       </div>
                     </td>
-                    @if ($data->status == 0)
+                    <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                      <div class="px-4">
+                        <h6 class="mb-0 text-sm leading-normal">{{ $data->catatan}}</h6>
+                      </div>
+                    </td>
                     <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                       <div class="flex justify-center">
-                        <a href="#" class="cursor-pointer flex p-2 m-1 rounded-md items-center bg-[#F96D0E] hover:bg-orange-600 text-white font-medium ">
+                        <a href="{{route('admin.pesananedit', $data->id)}}" class="cursor-pointer flex p-2 m-1 rounded-md items-center bg-[#F96D0E] hover:bg-orange-600 text-white font-medium ">
                           <i class="fa fa-pencil pr-1" aria-hidden="true"></i> Edit
                         </a>
-                        <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="#" method="POST">
+                        <form id="deleteForm{{ $data->id }}" action="{{ route('pemesanan.destroy', $data->id) }}" method="POST">
                           @csrf
                           @method('DELETE')
-                          <button type="submit" class=" flex p-2 m-1 rounded-md items-center bg-gray-600 hover:bg-gray-700 text-white font-medium">
+                          <button type="button" onclick="confirmDelete('{{ $data->id }}')" class=" flex p-2 m-1 rounded-md items-center bg-gray-600 hover:bg-gray-700 text-white font-medium">
                             <i class="fa fa-trash-o pr-1" aria-hidden="true"></i> Hapus
                           </button>
                         </form>
                       </div>
                     </td>
-                    @else
-                    <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                      <div class="px-4">
-                        <h6 class="mb-0 text-sm leading-normal font-bold text-yellow-300">tidak dapat mengubah pesanan</h6>
-                      </div>
-                    </td>
-                    @endif
                   </tr>
                   @endforeach
                 </tbody>

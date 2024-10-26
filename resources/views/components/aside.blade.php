@@ -72,15 +72,55 @@ $dashboardRoute = 'dashboard';
 
             @if (Auth::user()->role == 2 || Auth::user()->role == 1)
             <li class="mt-0.5 w-full">
-                <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors {{ Request::routeIs('admin.project') ? 'shadow-soft-xl rounded-lg bg-white font-semibold text-slate-700' : '' }}" href="{{route('admin.project')}}">
-                    <div class="{{ Request::routeIs('admin.project') ? 'bg-[#1410EB] text-white' : 'text-slate-800 bg-white' }} shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors {{ Request::routeIs('admin.pesanan') ? 'shadow-soft-xl rounded-lg bg-white font-semibold text-slate-700' : '' }}" href="{{route('admin.pesanan')}}">
+                    <div class="{{ Request::routeIs('admin.pesanan') ? 'bg-[#1410EB] text-white' : 'text-slate-800 bg-white' }} shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                         <i class="fa fa-list-alt" aria-hidden="true"></i>
                     </div>
                     <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Client Order</span>
                 </a>
             </li>
+            @endif
+
+            @if (Auth::user()->role == 0)
+            <li class="mt-0.5 w-full">
+                <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors {{ Request::routeIs('pemesanan.index') ? 'shadow-soft-xl rounded-lg bg-white font-semibold text-slate-700' : '' }}" href="{{route('pemesanan.index')}}">
+                    <div class="{{ Request::routeIs('pemesanan.index') ? 'bg-[#1410EB] text-white' : 'bg-white' }} shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                        <i class="fa fa-table" aria-hidden="true"></i>
+                    </div>
+                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">pesananmu</span>
+                </a>
+            </li>
+            @endif
+
             <li class="w-full mt-4">
-                <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase opacity-60">Landing Pages</h6>
+                <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase opacity-60">Account pages</h6>
+            </li>
+
+            <li class="mt-0.5 w-full">
+                <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors {{ Request::segment(2) == Auth::user()->biodata->id ? 'shadow-soft-xl rounded-lg bg-white font-semibold text-slate-700' : '' }}" href="{{route('biodata.edit', Auth::user()->biodata->id)}}">
+                    <div class="{{ Request::segment(2) == Auth::user()->biodata->id ? 'bg-[#1410EB] text-white' : 'text-slate-800 bg-white' }} shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                        <svg width="12px" height="12px" viewBox="0 0 46 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <title>customer-support</title>
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <g transform="translate(-1717.000000, -291.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                                    <g transform="translate(1716.000000, 291.000000)">
+                                        <g transform="translate(1.000000, 0.000000)">
+                                            <path class="{{Request::segment(2) == Auth::user()->biodata->id ? 'fill-white' : 'fill-slate-800'}}  opacity-60" d="M45,0 L26,0 C25.447,0 25,0.447 25,1 L25,20 C25,20.379 25.214,20.725 25.553,20.895 C25.694,20.965 25.848,21 26,21 C26.212,21 26.424,20.933 26.6,20.8 L34.333,15 L45,15 C45.553,15 46,14.553 46,14 L46,1 C46,0.447 45.553,0 45,0 Z"></path>
+                                            <path class="{{Request::segment(2) == Auth::user()->biodata->id ? 'fill-white' : 'fill-slate-800'}}" d="M22.883,32.86 C20.761,32.012 17.324,31 13,31 C8.676,31 5.239,32.012 3.116,32.86 C1.224,33.619 0,35.438 0,37.494 L0,41 C0,41.553 0.447,42 1,42 L25,42 C25.553,42 26,41.553 26,41 L26,37.494 C26,35.438 24.776,33.619 22.883,32.86 Z"></path>
+                                            <path class="{{Request::segment(2) == Auth::user()->biodata->id ? 'fill-white' : 'fill-slate-800'}}" d="M13,28 C17.432,28 21,22.529 21,18 C21,13.589 17.411,10 13,10 C8.589,10 5,13.589 5,18 C5,22.529 8.568,28 13,28 Z"></path>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </svg>
+                    </div>
+                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Profile</span>
+                </a>
+            </li>
+
+            @if (Auth::user()->role == 2 || Auth::user()->role == 1)
+            <li class="w-full mt-4">
+                <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase opacity-60">Web Profile</h6>
             </li>
             <li class="my-1 w-10/12 bg-white rounded-lg mx-auto">
                 <button onclick="toggleFaq('landing')" class="py-2.5 text-normal ease-nav-brand my-0 flex items-center justify-between whitespace-nowrap w-full px-4 transition-colors {{ Request::routeIs('header.index') || Request::routeIs('features.index') || Request::routeIs('testimoni.index') || Request::routeIs('price.index') ? 'bg-[#1410EB]' : 'bg-gray-600' }} text-white rounded-lg">
@@ -144,45 +184,26 @@ $dashboardRoute = 'dashboard';
                     <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">FAQ</span>
                 </a>
             </li>
-            @endif
-
-            @if (Auth::user()->role == 0)
-            <li class="mt-0.5 w-full">
-                <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors {{ Request::routeIs('pemesanan.index') ? 'shadow-soft-xl rounded-lg bg-white font-semibold text-slate-700' : '' }}" href="{{route('pemesanan.index')}}">
-                    <div class="{{ Request::routeIs('pemesanan.index') ? 'bg-[#1410EB] text-white' : 'bg-white' }} shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                        <i class="fa fa-table" aria-hidden="true"></i>
-                    </div>
-                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">pesananmu</span>
-                </a>
-            </li>
-            @endif
-
-
             <li class="w-full mt-4">
-                <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase opacity-60">Account pages</h6>
+                <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase opacity-60">Data Master</h6>
             </li>
-
             <li class="mt-0.5 w-full">
-                <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors" href="./pages/profile.html">
-                    <div class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
-                        <svg width="12px" height="12px" viewBox="0 0 46 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                            <title>customer-support</title>
-                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                <g transform="translate(-1717.000000, -291.000000)" fill="#FFFFFF" fill-rule="nonzero">
-                                    <g transform="translate(1716.000000, 291.000000)">
-                                        <g transform="translate(1.000000, 0.000000)">
-                                            <path class="fill-slate-800 opacity-60" d="M45,0 L26,0 C25.447,0 25,0.447 25,1 L25,20 C25,20.379 25.214,20.725 25.553,20.895 C25.694,20.965 25.848,21 26,21 C26.212,21 26.424,20.933 26.6,20.8 L34.333,15 L45,15 C45.553,15 46,14.553 46,14 L46,1 C46,0.447 45.553,0 45,0 Z"></path>
-                                            <path class="fill-slate-800" d="M22.883,32.86 C20.761,32.012 17.324,31 13,31 C8.676,31 5.239,32.012 3.116,32.86 C1.224,33.619 0,35.438 0,37.494 L0,41 C0,41.553 0.447,42 1,42 L25,42 C25.553,42 26,41.553 26,41 L26,37.494 C26,35.438 24.776,33.619 22.883,32.86 Z"></path>
-                                            <path class="fill-slate-800" d="M13,28 C17.432,28 21,22.529 21,18 C21,13.589 17.411,10 13,10 C8.589,10 5,13.589 5,18 C5,22.529 8.568,28 13,28 Z"></path>
-                                        </g>
-                                    </g>
-                                </g>
-                            </g>
-                        </svg>
+                <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors {{ Request::routeIs('usaha.index') ? 'shadow-soft-xl rounded-lg bg-white font-semibold text-slate-700' : '' }}" href="{{route('usaha.index')}}">
+                    <div class="{{ Request::routeIs('usaha.index') ? 'bg-[#1410EB] text-white' : 'text-slate-800 bg-white' }} shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                        <i class="fa fa-briefcase" aria-hidden="true"></i>
                     </div>
-                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Profile</span>
+                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Bidang Usaha</span>
                 </a>
             </li>
+            <li class="mt-0.5 w-full">
+                <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors {{ Request::routeIs('usaha.index') ? 'shadow-soft-xl rounded-lg bg-white font-semibold text-slate-700' : '' }}" href="{{route('usaha.index')}}">
+                    <div class="{{ Request::routeIs('usaha.index') ? 'bg-[#1410EB] text-white' : 'text-slate-800 bg-white' }} shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                        <i class="fa fa-briefcase" aria-hidden="true"></i>
+                    </div>
+                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Kategori Berita</span>
+                </a>
+            </li>
+            @endif
 
         </ul>
     </div>

@@ -1,7 +1,7 @@
 @extends('layouts.root')
 
 @section('title')
-Table User - Super Admin
+Profile - {{Auth::user()->name}}
 @endsection
 
 @section('content')
@@ -15,20 +15,25 @@ Table User - Super Admin
         <!-- breadcrumb -->
         <ol class="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
           <li class="text-sm leading-normal">
-            <a class="opacity-50 text-slate-700" href="javascript:;">Admin</a>
+            <a class="opacity-50 text-slate-700" href="javascript:;">
+              @if (Auth::user()->role == 0)
+              Customer
+              @else
+              Admin
+              @endif
+            </a>
           </li>
-          <li class="text-sm pl-2 capitalize leading-normal text-slate-700 before:float-left before:pr-2 before:text-gray-600 before:content-['/']" aria-current="page">Landing</li>
+          <li class="text-sm pl-2 capitalize leading-normal text-slate-700 before:float-left before:pr-2 before:text-gray-600 before:content-['/']" aria-current="page">Biodata profile</li>
         </ol>
-        <h6 class="mb-0 font-bold capitalize">Header</h6>
       </nav>
 
       <div class="flex items-center mt-2 grow sm:mt-0 sm:mr-6 md:mr-0 lg:flex lg:basis-auto">
         <div class="flex items-center md:ml-auto md:pr-4">
           <div class="relative flex flex-wrap items-stretch w-full transition-all rounded-lg ease-soft">
             <span class="text-sm ease-soft leading-5.6 absolute z-50 -ml-px flex h-full items-center whitespace-nowrap rounded-lg rounded-tr-none rounded-br-none border border-r-0 border-transparent bg-transparent py-2 px-2.5 text-center font-normal text-slate-500 transition-all">
-              <i class="fas fa-search"></i>
+              <!-- <i class="fas fa-search"></i> -->
             </span>
-            <input type="text" class="pl-8.75 text-sm focus:shadow-soft-primary-outline ease-soft w-1/100 leading-5.6 relative -ml-px block min-w-0 flex-auto rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" placeholder="Type here..." />
+            <!-- <input type="text" class="pl-8.75 text-sm focus:shadow-soft-primary-outline ease-soft w-1/100 leading-5.6 relative -ml-px block min-w-0 flex-auto rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" placeholder="Type here..." /> -->
           </div>
         </div>
         <ul class="flex flex-row justify-end pl-0 mb-0 list-none md-max:w-full">
@@ -45,96 +50,6 @@ Table User - Super Admin
               @csrf
             </form>
           </li>
-          <li class="flex items-center pl-4 xl:hidden">
-            <a href="javascript:;" class="block p-0 text-sm transition-all ease-nav-brand text-slate-500" sidenav-trigger>
-              <div class="w-4.5 overflow-hidden">
-                <i class="ease-soft mb-0.75 relative block h-0.5 rounded-sm bg-slate-500 transition-all"></i>
-                <i class="ease-soft mb-0.75 relative block h-0.5 rounded-sm bg-slate-500 transition-all"></i>
-                <i class="ease-soft relative block h-0.5 rounded-sm bg-slate-500 transition-all"></i>
-              </div>
-            </a>
-          </li>
-          <li class="flex items-center px-4">
-            <a href="javascript:;" class="p-0 text-sm transition-all ease-nav-brand text-slate-500">
-              <i fixed-plugin-button-nav class="cursor-pointer fa fa-cog"></i>
-              <!-- fixed-plugin-button-nav  -->
-            </a>
-          </li>
-
-          <!-- notifications -->
-
-          <li class="relative flex items-center pr-2">
-            <p class="hidden transform-dropdown-show"></p>
-            <a href="javascript:;" class="block p-0 text-sm transition-all ease-nav-brand text-slate-500" dropdown-trigger aria-expanded="false">
-              <i class="cursor-pointer fa fa-bell"></i>
-            </a>
-
-            <ul dropdown-menu class="text-sm transform-dropdown before:font-awesome before:leading-default before:duration-350 before:ease-soft lg:shadow-soft-3xl duration-250 min-w-44 before:sm:right-7.5 before:text-5.5 pointer-events-none absolute right-0 top-0 z-50 origin-top list-none rounded-lg border-0 border-solid border-transparent bg-white bg-clip-padding px-2 py-4 text-left text-slate-500 opacity-0 transition-all before:absolute before:right-2 before:left-auto before:top-0 before:z-50 before:inline-block before:font-normal before:text-white before:antialiased before:transition-all before:content-['\f0d8'] sm:-mr-6 lg:absolute lg:right-0 lg:left-auto lg:mt-2 lg:block lg:cursor-pointer">
-              <!-- add show class on dropdown open js -->
-              <li class="relative mb-2">
-                <a class="ease-soft py-1.2 clear-both block w-full whitespace-nowrap rounded-lg bg-transparent px-4 duration-300 hover:bg-gray-200 hover:text-slate-700 lg:transition-colors" href="javascript:;">
-                  <div class="flex py-1">
-                    <div class="my-auto">
-                      <img src="./assets/img/team-2.jpg" class="inline-flex items-center justify-center mr-4 text-sm text-white h-9 w-9 max-w-none rounded-xl" />
-                    </div>
-                    <div class="flex flex-col justify-center">
-                      <h6 class="mb-1 text-sm font-normal leading-normal"><span class="font-semibold">New message</span> from Laur</h6>
-                      <p class="mb-0 text-xs leading-tight text-slate-400">
-                        <i class="mr-1 fa fa-clock"></i>
-                        13 minutes ago
-                      </p>
-                    </div>
-                  </div>
-                </a>
-              </li>
-
-              <li class="relative mb-2">
-                <a class="ease-soft py-1.2 clear-both block w-full whitespace-nowrap rounded-lg px-4 transition-colors duration-300 hover:bg-gray-200 hover:text-slate-700" href="javascript:;">
-                  <div class="flex py-1">
-                    <div class="my-auto">
-                      <img src="./assets/img/small-logos/logo-spotify.svg" class="inline-flex items-center justify-center mr-4 text-sm text-white bg-gradient-to-tl from-gray-900 to-slate-800 h-9 w-9 max-w-none rounded-xl" />
-                    </div>
-                    <div class="flex flex-col justify-center">
-                      <h6 class="mb-1 text-sm font-normal leading-normal"><span class="font-semibold">New album</span> by Travis Scott</h6>
-                      <p class="mb-0 text-xs leading-tight text-slate-400">
-                        <i class="mr-1 fa fa-clock"></i>
-                        1 day
-                      </p>
-                    </div>
-                  </div>
-                </a>
-              </li>
-
-              <li class="relative">
-                <a class="ease-soft py-1.2 clear-both block w-full whitespace-nowrap rounded-lg px-4 transition-colors duration-300 hover:bg-gray-200 hover:text-slate-700" href="javascript:;">
-                  <div class="flex py-1">
-                    <div class="inline-flex items-center justify-center my-auto mr-4 text-sm text-white transition-all duration-200 ease-nav-brand bg-gradient-to-tl from-slate-600 to-slate-300 h-9 w-9 rounded-xl">
-                      <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <title>credit-card</title>
-                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                          <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF" fill-rule="nonzero">
-                            <g transform="translate(1716.000000, 291.000000)">
-                              <g transform="translate(453.000000, 454.000000)">
-                                <path class="color-background" d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z" opacity="0.593633743"></path>
-                                <path class="color-background" d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z"></path>
-                              </g>
-                            </g>
-                          </g>
-                        </g>
-                      </svg>
-                    </div>
-                    <div class="flex flex-col justify-center">
-                      <h6 class="mb-1 text-sm font-normal leading-normal">Payment successfully completed</h6>
-                      <p class="mb-0 text-xs leading-tight text-slate-400">
-                        <i class="mr-1 fa fa-clock"></i>
-                        2 days
-                      </p>
-                    </div>
-                  </div>
-                </a>
-              </li>
-            </ul>
-          </li>
         </ul>
       </div>
     </div>
@@ -148,54 +63,147 @@ Table User - Super Admin
     <!-- cards row 1 -->
     <div class="items-start p-8 space-y-4">
       <div class="flex justify-center">
-        <h2 class="text-4xl uppercase font-semibold text-gray-900 mb-4 text-center">Profile</h2>
-        <i class="fa fa-pencil-square-o text-sm" aria-hidden="true"></i>
+        <h2 class="text-4xl uppercase font-semibold text-gray-900 mb-4 text-center">Profile User</h2>
       </div>
-      <div id="form" class="lg:w-2/3 mx-auto">
-        <div class="bg-white shadow border rounded-lg p-4">
-          <form action="{{ route('header.update', $header->id) }}" method="post" class="lg:flex" enctype="multipart/form-data">
-            @csrf
-            @method('PUT')
-            <div class="lg:w-1/2 w-full flex flex-col justify-between">
-              <div>
-                <div class="mb-4">
-                  <label for="judul" class="block text-gray-700 text-lg font-bold mb-2">Judul:</label>
-                  <input type="text" id="judul" name="judul" class="shadow appearance-none border rounded w-4/5 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    placeholder="Masukkan Judul" require value="{{ $header->judul }}">
-                </div>
-                <div class="mb-4">
-                  <label for="subjudul" class="block text-gray-700 text-lg font-bold mb-2">Sub-judul:</label>
-                  <textarea id="subjudul" name="subjudul" rows="4" class="block p-2.5 w-4/5 text-sm text-gray-700 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="Masukan Sub-Judul" require>{{$header->subjudul}}</textarea>
-                </div>
-              </div>
-              <div class="mb-4">
-                <button type="submit"
-                  class="bg-gradient-to-r bg-[#1410EB] hover:bg-blue-700 text-white font-bold py-2 px-16 rounded focus:outline-none focus:shadow-outline">
-                  Ganti Header
-                </button>
-              </div>
+
+      <div class="max-w-lg lg:max-w-screen-lg w-full bg-white border border-gray-200 rounded-lg shadow mx-auto">
+        <!-- Trigger Div -->
+        <button onclick="toggleFaq('biodata')" class="w-full">
+          <div class="p-5 border border-gray-200 shadow rounded-lg flex lg:px-14 cursor-pointer justify-between">
+            <p class="text-lg font-bold tracking-tight text-gray-900">Biodata User</p>
+            <div class="pt-1">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="black" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+              </svg>
             </div>
-            <div class="lg:w-1/2 w-full">
-              <div class="mb-4">
-                <label for="file_input" class="block text-gray-700 text-lg font-bold mb-2">Gambar:</label>
-                <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50"
-                  id="file_input" type="file" name="gambar" accept=".png, .jpg, .jpeg" onchange="previewImage(event)">
-                <div class="p-10">
-                  <img id="image_preview" class="w-full hidden" alt="Preview Image">
+          </div>
+        </button>
+
+        <!-- Content Div -->
+        <div id="biodata" class="max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+          <div class="p-5 lg:px-8">
+            <form action="{{ route('biodata.update', $biodata->id) }}" method="POST" enctype="multipart/form-data">
+              @csrf
+              @method('PUT')
+              <hr>
+              <div class="p-6 grid grid-cols-2 lg:gap-x-8 gap-2">
+                <div class="mb-5">
+                  <label for="name" class="block mb-2 text-base font-medium text-gray-900 ">Nama:</label>
+                  <input type="text" id="name" name="name" value="{{$biodata->user->name}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required />
+                </div>
+                <div class="mb-5">
+                  <label for="email" class="block mb-2 text-base font-medium text-gray-900 ">Email:</label>
+                  <input type="email" id="email" name="email" value="{{$biodata->user->email}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required />
+                </div>
+                <div class="mb-5">
+                  <label for="nama_usaha" class="block mb-2 text-base font-medium text-gray-900 ">Nama Usaha:</label>
+                  <input type="text" id="nama_usaha" name="nama_usaha" value="{{$biodata->nama_usaha}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required />
+                </div>
+                <div class="mb-5">
+                  <label for="name" class="block mb-2 text-base font-medium text-gray-900 ">Bidang Usaha:</label>
+                  <select id="bidang_usaha_id" name="bidang_usaha_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                    @foreach($usaha as $data)
+                    <option value="{{ $data->id }}" {{ $data->id == $biodata->bidang_usaha_id ? 'selected' : '' }}>{{ $data->bidang_usaha }}</option>
+                    @endforeach
+                  </select>
+                </div>
+                <div class="mb-5">
+                  <label for="nomor_telpon" class="block mb-2 text-base font-medium text-gray-900 ">Nomor Telepon:</label>
+                  <input type="number" id="nomor_telpon" name="nomor_telpon" value="{{$biodata->nomor_telpon}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required />
+                </div>
+                <div class="mb-5">
+                  <label for="alamat" class="block mb-2 text-base font-medium text-gray-900 ">Alamat:</label>
+                  <textarea id="alamat" name="alamat" rows="3" class="block p-2.5 w-full text-sm text-gray-700 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Masukan Isi" require>{{$biodata->alamat}}</textarea>
                 </div>
               </div>
-            </div>
-          </form>
+              <div class="w-full flex justify-center">
+                <button type="submit" class="text-white bg-[#1410EB] hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-base w-full max-w-xs px-5 py-2.5 text-center">Edit Profile</button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-      <div class="flex justify-center">
-        <button id="toggleButton" class="bg-[#F96D0E] hover:bg-orange-600 text-white font-bold py-2 px-16 rounded focus:outline-none focus:shadow-outline">
-          Edit
+
+      @if ($biodata->user->role == 0)
+      <div class="max-w-lg lg:max-w-screen-lg w-full bg-white border border-gray-200 rounded-lg shadow mx-auto">
+        <!-- Trigger Div -->
+        <button onclick="toggleFaq('produk')" class="w-full">
+          <div class="p-5 border border-gray-200 shadow rounded-lg flex lg:px-14 cursor-pointer justify-between">
+            <p class="text-lg font-bold tracking-tight text-gray-900">Produk</p>
+            <div class="pt-1">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="black" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+              </svg>
+            </div>
+          </div>
         </button>
+
+        <!-- Content Div -->
+        <div id="produk" class="max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+          <div class="p-5 lg:px-8">
+            <div class="flex-auto px-0 pt-0 pb-2 items-center">
+              <form action="{{ route('biodata.updategambar', $biodata->id) }}" method="post" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+                <div class="mb-4">
+                  <label for="gambar" class="block text-gray-700 text-lg font-bold mb-2">Tambah Gambar Produk:</label>
+                  <div class="flex gap-4">
+                    <input name="gambar[]" id="gambar" type="file" multiple class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50" />
+                    <button type="submit"
+                      class="w-1/6 bg-[#1410EB] text-sm hover:bg-blue-700 text-white font-bold py-2 px-3 rounded focus:outline-none focus:shadow-outline">
+                      Tambah Gambar
+                    </button>
+                  </div>
+                </div>
+              </form>
+              <div class="p-0 overflow-x-auto">
+                <table class="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
+                  <thead class="align-bottom">
+                    <tr>
+                      <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Gambar Produk</th>
+                      <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @php
+                    $images = json_decode($biodata->gambar, true);
+                    @endphp
+                    @foreach($images as $index => $data)
+                    <tr>
+                      <td class="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                        <div class="px-4 flex justify-center">
+                          <img src="{{ asset('/storage/uploads/'.$data)}}" class="w-full max-w-lg" alt="">
+                        </div>
+                      </td>
+                      <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                        <div class="flex justify-center">
+                          <form id="deleteForm{{ $index }}" action="{{ route('biodata.hapusgambar', $biodata->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <input type="hidden" name="gambar" value="{{ $data }}">
+                            <button type="button" onclick="confirmDelete('{{ $index }}')" class=" flex p-2 m-1 rounded-md items-center bg-gray-600 hover:bg-gray-700 text-white font-medium">
+                              <i class="fa fa-trash-o pr-1" aria-hidden="true"></i> Hapus
+                            </button>
+                          </form>
+                        </div>
+                      </td>
+                    </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+      @endif
+
     </div>
     <!-- end cards -->
   </div>
 </main>
+<script>
+  
+</script>
 @endsection

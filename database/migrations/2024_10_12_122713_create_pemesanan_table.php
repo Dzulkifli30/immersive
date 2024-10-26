@@ -20,6 +20,9 @@ return new class extends Migration
             $table->integer('status');
             $table->integer('total_harga');
             $table->foreignId('user_id')->references('id')->on('users');
+            $table->string('catatan')->nullable();
+            $table->json('foto')->nullable();
+            $table->boolean('metode_pembayaran');
             $table->timestamps();
         });
     }

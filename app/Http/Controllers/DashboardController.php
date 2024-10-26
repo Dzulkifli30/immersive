@@ -30,13 +30,20 @@ class DashboardController extends Controller
         return view('faq', compact('faq'));
     }
 
-    public function news() {
+    public function news(Request $request) {
         // $kategori = KategoriBerita::all();
+        $query = $request->input('query');
+        
+        if ($query) {
+            $news = Berita::where('judul', 'like', '%' . $query . '%')->get();
+        } else {
+            $news = Berita::latest()->paginate(5);
+        }
 
-        $news = Berita::all();
         $terbaru = Berita::latest()->paginate(3);
+        $kategori = KategoriBerita::all();
 
-        return view('news', compact('news', 'terbaru'));
+        return view('news', compact('news', 'terbaru', 'kategori'));
     }
 
     public function gallery() {
@@ -65,16 +72,13 @@ class DashboardController extends Controller
         return view('faq', ['faq' => $faq]);
     }
 
-    public function searchnews(Request $request)
+    public function kategorinews(string $id)
     {
-        $query = $request->input('query');
-        
-        if ($query) {
-            $news = Berita::where('judul', 'like', '%' . $query . '%')->get();
-        } else {
-            $news = Berita::all();
-        }
+        $news = Berita::where('kategori_id', '=', $id)->paginate(5);
 
-        return view('news', ['news' => $news]);
+        $terbaru = Berita::latest()->paginate(3);
+        $kategori = KategoriBerita::all();
+
+        return view('news', compact('news', 'terbaru', 'kategori'));
     }
 }

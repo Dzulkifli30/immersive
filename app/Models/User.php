@@ -51,6 +51,7 @@ class User extends Authenticatable
     {
         return $this->hasOne(Biodata::class);
     }
+    
     public function pemesanan()
     {
         return $this->hasMany(Pemesanan::class);

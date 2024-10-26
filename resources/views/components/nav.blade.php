@@ -22,18 +22,20 @@
                 <li>
                     <a class="nav-link page-scroll  hover:text-[#F96D0E] {{ Request::routeIs('landing.home') ? 'text-[#F96D0E]' : 'text-gray-700' }}" href="{{ route('landing.home') }}">Home </a>
                 </li>
+                @if (Request::routeIs('landing.home'))
                 <li>
                     <a class="nav-link page-scroll  hover:text-[#F96D0E] {{ Request::routeIs('landing.product') ? 'text-[#F96D0E]' : 'text-gray-700' }}" href="#pricing">Product</a>
                 </li>
+                @endif
                 <li>
                     <a class="nav-link page-scroll  hover:text-[#F96D0E] {{ Request::routeIs('landing.gallery') ? 'text-[#F96D0E]' : 'text-gray-700' }}" href="{{ route('landing.gallery') }}">Gallery</a>
                 </li>
                 <li>
                     <a class="nav-link page-scroll  hover:text-[#F96D0E] {{ Request::routeIs('landing.news') ? 'text-[#F96D0E]' : 'text-gray-700' }}" href="{{ route('landing.news') }}">News</a>
                 </li>
-                <li>
+                <!-- <li>
                     <a class="nav-link page-scroll  hover:text-[#F96D0E] {{ Request::routeIs('landing.about') ? 'text-[#F96D0E]' : 'text-gray-700' }}" href="{{ route('landing.about') }}">About Us</a>
-                </li>
+                </li> -->
                 <li>
                     <a class="nav-link page-scroll  hover:text-[#F96D0E] {{ Request::routeIs('landing.faq') ? 'text-[#F96D0E]' : 'text-gray-700' }}" href="{{ route('landing.faq') }}">FAQ</a>
                 </li>

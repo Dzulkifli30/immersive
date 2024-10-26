@@ -43,7 +43,7 @@ Beranda - Immersive
                     <div class="frequency">/monthly</div>
                     <p class="text-justify">{{ $harga->isi}}</p>
                     <div class="button-wrapper">
-                        <a class="btn-solid-reg page-scroll bg-[#1410EB] hover:border-[#1410EB] hover:text-[#1410EB]" href="#download">Download</a>
+                        <a class="btn-solid-reg page-scroll bg-[#1410EB] hover:border-[#1410EB] hover:text-[#1410EB]" href="{{ route('login')}}">Try it</a>
                     </div>
                 </div>
             </div> <!-- end of card -->

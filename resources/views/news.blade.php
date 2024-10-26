@@ -19,11 +19,11 @@ Berita - Immersive
 
 <!-- search -->
 <div class="w-full pb-6 lg:pb-20 flex flex-col items-center">
-    <form class="max-w-sm lg:max-w-screen-lg w-full" method="GET" action="{{ route('search.news') }}">
+    <form class="max-w-sm lg:max-w-screen-lg w-full" method="GET" action="{{ route('landing.news') }}">
         <div class="relative">
             <input type="search" name="query" id="default-search"
                 class="block w-full p-4 ps-10 text-md text-black border border-black rounded-lg"
-                placeholder="Cari pertanyaan" required />
+                placeholder="Cari Berita" required />
             <button type="submit"
                 class="text-black absolute end-2.5 bottom-2.5 focus:ring-4 focus:outline-none focus:ring-gray-500 font-medium rounded-lg text-lg py-1 pr-4 ">
                 <svg class="w-8 h-8" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -38,10 +38,13 @@ Berita - Immersive
 
 <!-- kategori -->
 <div id="kategori" class="w-full px-4 pb-16 flex justify-center mx-auto space-x-3">
-    <button class="btn px-4 py-2 rounded-full border-[#1410EB] border bg-white text-[#1410EB] font-semibold" id="btn1" onclick="filterNews('all')">all</button>
-    <button class="btn px-4 py-2 rounded-full border-[#1410EB] border bg-[#1410EB] text-white font-semibold" id="btn2" onclick="filterNews('pendidikan')">Pendidikan</button>
-    <button class="btn px-4 py-2 rounded-full border-[#1410EB] border bg-[#1410EB] text-white font-semibold" id="btn3" onclick="filterNews('teknologi')">Teknologi</button>
-    <button class="btn px-4 py-2 rounded-full border-[#1410EB] border bg-[#1410EB] text-white font-semibold" id="btn4" onclick="filterNews('sejarah')">Sejarah</button>
+    <a href="{{route('landing.news')}}" class="btn px-4 py-2 rounded-full font-semibold border-[#1410EB] border {{ Request::routeIs('landing.news') ? 'bg-white text-[#1410EB]' : 'bg-[#1410EB] text-white' }}">all</a>
+    @foreach ($kategori as $category)
+    <a href="{{route('kategori.news', $category->id)}}" class="btn px-4 py-2 rounded-full font-semibold border-[#1410EB] border {{ Request::segment(3) == $category->id ? 'bg-white text-[#1410EB]' : 'bg-[#1410EB] text-white' }}">
+        {{ $category->nama }}
+    </a>
+    @endforeach
+    
 </div>
 
 <div id="news" class="w-full px-4 md:px-10 xl:px-28 flex justify-between items-start">

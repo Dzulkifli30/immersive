@@ -59,7 +59,7 @@ Booking Booth - Costumer
           <div class="p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent flex justify-between">
             <h6>Tabel pesanan Booth Mu</h6>
             <button onclick="showPopup('tambah-pesanan')" class="cursor-pointer flex p-2 m-1 rounded-md items-center bg-[#1410EB] hover:bg-blue-700 text-white font-medium ">
-              <i class="fa fa-pencil-square-o pr-1" aria-hidden="true"></i> Booking lagi
+              <i class="fa fa-pencil-square-o pr-1" aria-hidden="true"></i> Buat Pemesanan
             </button>
           </div>
           <div class="flex-auto px-0 pt-0 pb-2 items-center">
@@ -72,11 +72,12 @@ Booking Booth - Costumer
                     <th class="px-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Paket</th>
                     <th class="px-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Status</th>
                     <th class="px-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Total Harga</th>
+                    <th class="px-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Catatan</th>
                     <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach($pemesanan as $data)
+                  @foreach($pemesanan as $index => $data)
                   <tr class="">
                     <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                       <div class="px-4 text-ellipsis overflow-hidden max-w-xs">
@@ -85,7 +86,9 @@ Booking Booth - Costumer
                     </td>
                     <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                       <div class="max-w-sm">
-                        <h6 class="mb-0 text-sm leading-normal break-words line-clamp-3">{{$data->jadwal_mulai}} s/d {{$data->jadwal_berakhir}}</h6>
+                        <h6 class="mb-0 text-sm leading-normal break-words line-clamp-3">
+                          {{ \Carbon\Carbon::parse($data->jadwal_mulai)->translatedFormat('d F Y') }} s/d {{ \Carbon\Carbon::parse($data->jadwal_berakhir)->translatedFormat('d F Y') }}
+                        </h6>
                       </div>
                     </td>
                     <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
@@ -100,6 +103,24 @@ Booking Booth - Costumer
                         <h6 class="mb-0 text-sm leading-normal font-bold text-yellow-300">Pending</h6>
                       </div>
                     </td>
+                    @elseif ($data->status == 1)
+                    <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                      <div class="px-4">
+                        <h6 class="mb-0 text-sm leading-normal font-bold text-lime-500">Confirmed</h6>
+                      </div>
+                    </td>
+                    @elseif ($data->status == 2)
+                    <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                      <div class="px-4">
+                        <h6 class="mb-0 text-sm leading-normal font-bold text-lime-300">Ongoing</h6>
+                      </div>
+                    </td>
+                    @else
+                    <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                      <div class="px-4">
+                        <h6 class="mb-0 text-sm leading-normal font-bold text-blue-500">Done</h6>
+                      </div>
+                    </td>
                     @endif
                     <!-- end status -->
                     <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
@@ -107,16 +128,21 @@ Booking Booth - Costumer
                         <h6 class="mb-0 text-sm leading-normal">{{ $data->total_harga}}.000</h6>
                       </div>
                     </td>
+                    <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                      <div class="px-4">
+                        <h6 class="mb-0 text-sm leading-normal">{{ $data->catatan}}</h6>
+                      </div>
+                    </td>
                     @if ($data->status == 0)
                     <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                       <div class="flex justify-center">
-                        <a href="#" class="cursor-pointer flex p-2 m-1 rounded-md items-center bg-[#F96D0E] hover:bg-orange-600 text-white font-medium ">
+                        <a href="{{ route('pemesanan.edit', $data->id) }}" class="cursor-pointer flex p-2 m-1 rounded-md items-center bg-[#F96D0E] hover:bg-orange-600 text-white font-medium ">
                           <i class="fa fa-pencil pr-1" aria-hidden="true"></i> Edit
                         </a>
-                        <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="#" method="POST">
+                        <form id="deleteForm{{ $index }}" action="{{ route('pemesanan.destroy', $data->id) }}" method="POST">
                           @csrf
                           @method('DELETE')
-                          <button type="submit" class=" flex p-2 m-1 rounded-md items-center bg-gray-600 hover:bg-gray-700 text-white font-medium">
+                          <button type="button" onclick="confirmDelete('{{ $index }}')" class="flex p-2 m-1 rounded-md items-center bg-gray-600 hover:bg-gray-700 text-white font-medium">
                             <i class="fa fa-trash-o pr-1" aria-hidden="true"></i> Hapus
                           </button>
                         </form>
@@ -124,8 +150,10 @@ Booking Booth - Costumer
                     </td>
                     @else
                     <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                      <div class="px-4">
-                        <h6 class="mb-0 text-sm leading-normal font-bold text-yellow-300">tidak dapat mengubah pesanan</h6>
+                      <div class="flex justify-center">
+                        <a href="{{ route('pemesanan.show', $data->id) }}" class="cursor-pointer flex p-2 m-1 rounded-md items-center bg-gray-600 hover:bg-gray-700 text-white font-medium ">
+                          <i class="fa fa-info-circle pr-1" aria-hidden="true"></i> Detail
+                        </a>
                       </div>
                     </td>
                     @endif
@@ -150,25 +178,25 @@ Booking Booth - Costumer
     class="max-h-[calc(100vh-5em)] h-fit w-1/2 max-w-screen-md scale-90 overflow-y-auto overscroll-contain rounded-2xl bg-white  text-black shadow-2xl transition"
     for="">
     <div class="flex items-center justify-between p-3 px-6">
-      <h3 class="text-xl font-bold">Tambah Berita</h3>
+      <h3 class="text-xl font-bold">Tambah Pemesanan</h3>
       <button onclick="hidePopup('tambah-pesanan')" class="text-black font-bold px-2 py-1 rounded bg-primary-red text-xl"><i class="fa fa-times" aria-hidden="true"></i></button>
     </div>
     <form action="{{ route('pemesanan.store') }}" method="post" enctype="multipart/form-data" class="p-8">
       @csrf
-      <div class="w-full md:space-y-8 lg:space-y-14">
+      <div class="w-full md:space-y-8 lg:space-y-6">
         <div class="mb-4">
           <label for="nama_event" class="block text-gray-700 text-lg font-bold mb-2">Nama Event:</label>
           <input type="text" id="nama_event" name="nama_event" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            placeholder="Masukkan nama event" require>
+            placeholder="Masukkan nama event" required>
         </div>
         <div class="mb-4">
           <label for="jadwal" class="block text-gray-700 text-lg font-bold mb-2">Pilih Tanggal Pemesanan:</label>
-          <div class="flex items-center">
+          <div class="flex items-center gap-4">
             <div class="w-full space-y-2">
               <span class="text-gray-700">Tanggal Mulai</span>
               <input type="date" id="jadwal_mulai" name="jadwal_mulai" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required />
             </div>
-            <span class="mx-4 text-gray-500">to</span>
+            <!-- <span class="mx-4 text-gray-500">to</span> -->
             <div class="w-full space-y-2">
               <span class="text-gray-700">Tanggal Akhir</span>
               <input type="date" id="jadwal_berakhir" name="jadwal_berakhir" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required />
@@ -176,15 +204,23 @@ Booking Booth - Costumer
           </div>
         </div>
         <div class="mb-4">
-          <label for="isi" class="block text-gray-700 text-lg font-bold mb-2">Pilih Paket:</label>
+          <label for="pajet_id" class="block text-gray-700 text-lg font-bold mb-2">Pilih Paket:</label>
           <select id="paket_id" name="paket_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-            <option selected>Pilih Paket</option>
+            <option disabled selected>Pilih Paket</option>
             @foreach($pricing as $data)
             <option value="{{ $data->id }}">{{ $data->jenis }} - {{ $data->harga }}.000</option>
             @endforeach
           </select>
         </div>
         <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+        <div class="mb-4">
+          <label for="metode_pembayaran" class="block text-gray-700 text-lg font-bold mb-2">Metode Pembayaran:</label>
+          <select id="metode_pembayaran" name="metode_pembayaran" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+            <option disabled selected>Pilih Metode</option>
+            <option value="0">Tunai</option>
+            <option value="1">Transfer</option>
+          </select>
+        </div>
         <div class="mb-4 w-full flex justify-center">
           <button type="submit"
             class="bg-[#1410EB] hover:bg-blue-700 text-white font-bold py-2 px-16 rounded focus:outline-none focus:shadow-outline">
@@ -195,4 +231,23 @@ Booking Booth - Costumer
     </form>
   </div>
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const jadwalMulai = document.getElementById('jadwal_mulai');
+    const jadwalBerakhir = document.getElementById('jadwal_berakhir');
+
+    // Set minimum date for jadwal_mulai to be tomorrow's date
+    const today = new Date();
+    today.setDate(today.getDate() + 1);
+    const tomorrow = today.toISOString().split('T')[0];
+    jadwalMulai.min = tomorrow;
+
+    // Set minimum date for jadwal_berakhir based on selected jadwal_mulai
+    jadwalMulai.addEventListener('change', function() {
+      jadwalBerakhir.value = ''; // Reset jadwal_berakhir
+      jadwalBerakhir.min = jadwalMulai.value; // Set jadwal_berakhir min date
+    });
+  });
+</script>
 @endsection

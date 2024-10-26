@@ -1,7 +1,7 @@
 @extends('layouts.root')
 
 @section('title')
-berita - Admin
+Pemesanan Edit - Admin
 @endsection
 
 @section('content')
@@ -17,9 +17,9 @@ berita - Admin
                     <li class="text-sm leading-normal">
                         <a class="opacity-50 text-slate-700" href="javascript:;">Admin</a>
                     </li>
-                    <li class="text-sm pl-2 capitalize leading-normal text-slate-700 before:float-left before:pr-2 before:text-gray-600 before:content-['/']" aria-current="page">Landing</li>
+                    <li class="text-sm pl-2 capitalize leading-normal text-slate-700 before:float-left before:pr-2 before:text-gray-600 before:content-['/']" aria-current="page">Pemesanan</li>
                 </ol>
-                <h6 class="mb-0 font-bold capitalize">berita table</h6>
+                <h6 class="mb-0 font-bold capitalize">Edit Pemesanan</h6>
             </nav>
 
             <div class="flex items-center mt-2 grow sm:mt-0 sm:mr-6 md:mr-0 lg:flex lg:basis-auto">
@@ -45,21 +45,6 @@ berita - Admin
                             @csrf
                         </form>
                     </li>
-                    <li class="flex items-center pl-4 xl:hidden">
-                        <a href="javascript:;" class="block p-0 text-sm transition-all ease-nav-brand text-slate-500" sidenav-trigger>
-                            <div class="w-4.5 overflow-hidden">
-                                <i class="ease-soft mb-0.75 relative block h-0.5 rounded-sm bg-slate-500 transition-all"></i>
-                                <i class="ease-soft mb-0.75 relative block h-0.5 rounded-sm bg-slate-500 transition-all"></i>
-                                <i class="ease-soft relative block h-0.5 rounded-sm bg-slate-500 transition-all"></i>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="flex items-center px-4">
-                        <a href="javascript:;" class="p-0 text-sm transition-all ease-nav-brand text-slate-500">
-                            <i fixed-plugin-button-nav class="cursor-pointer fa fa-cog"></i>
-                            <!-- fixed-plugin-button-nav  -->
-                        </a>
-                    </li>
                 </ul>
             </div>
         </div>
@@ -67,7 +52,7 @@ berita - Admin
     <!-- end Navbar -->
 
     <div class="px-10">
-        <a href="{{route('berita.index')}}">
+        <a href="{{ route('admin.pesanan') }}">
             <p class="font-bold text-lg underline text-gray-700 hover:text-black">
                 < Kembali</p>
         </a>
@@ -77,46 +62,58 @@ berita - Admin
         <!-- cards row 1 -->
         <div class="items-start p-8 space-y-4">
             <div class="flex justify-center">
-                <h2 class="text-4xl uppercase font-semibold text-gray-900 mb-4 text-center">Edit berita</h2>
+                <h2 class="text-4xl uppercase font-semibold text-gray-900 mb-4 text-center">Edit Status Pesanan</h2>
             </div>
             <div id="form" class="lg:w-2/3 mx-auto block">
                 <div class="bg-white shadow border rounded-lg p-4">
-                    <form action="{{ route('berita.update', $berita->id) }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('admin.pesananstatus', $pemesanan->id) }}" method="post" enctype="multipart/form-data">
                         @csrf
                         @METHOD('PUT')
                         <div class="w-full">
-                            <div class="mb-4">
-                                <label for="judul" class="block text-gray-700 text-lg font-bold mb-2">Masukan Judul:</label>
-                                <input type="text" id="judul" name="judul" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                    placeholder="Masukkan Judul" require value="{{$berita->judul}}">
+                            <div class="flex w-full">
+                                <div class="mb-4 flex gap-2 w-1/2">
+                                    <label for="nama" class="block text-gray-700 text-lg font-bold mb-2">Nama User:</label>
+                                    <label for="nama" class="block text-gray-700 text-lg mb-2"> {{$pemesanan->user->name}}</label>
+                                </div>
+                                <div class="mb-4 flex gap-2 w-1/2">
+                                    <label for="isi" class="block text-gray-700 text-lg font-bold mb-2">Nama Event:</label>
+                                    <label for="nama" class="block text-gray-700 text-lg mb-2"> {{$pemesanan->nama_event}}</label>
+                                </div>
+                            </div>
+                            <div class="flex w-full">
+                                <div class="mb-4 flex gap-2 w-1/2">
+                                    <label for="isi" class="block text-gray-700 text-lg font-bold mb-2">Jadwal Event:</label>
+                                    <label for="nama" class="block text-gray-700 text-lg mb-2">
+                                        {{ \Carbon\Carbon::parse($pemesanan->jadwal_mulai)->translatedFormat('d M Y') }} s/d {{ \Carbon\Carbon::parse($pemesanan->jadwal_berakhir)->translatedFormat('d M Y') }}
+                                    </label>
+                                </div>
+                                <div class="mb-4 flex gap-2 w-1/2">
+                                    <label for="isi" class="block text-gray-700 text-lg font-bold mb-2">Paket:</label>
+                                    <label for="nama" class="block text-gray-700 text-lg mb-2"> {{$pemesanan->paket->jenis}}</label>
+                                </div>
                             </div>
                             <div class="mb-4">
-                                <label for="isi" class="block text-gray-700 text-lg font-bold mb-2">Masukan isi:</label>
-                                <textarea id="isi" name="isi" rows="4" class="block p-2.5 w-full text-sm text-gray-700 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-                                    placeholder="Masukan Isi" require>{{$berita->isi}}</textarea>
-                            </div>
-                            <div class="mb-4">
-                                <label for="judul" class="block text-gray-700 text-lg font-bold mb-2">Pilih Kategori:</label>
-                                <select id="kategori_id" name="kategori_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                                    @foreach($kategori as $data)
-                                    <option value="{{ $data->id }}" {{ $data->id == $berita->kategori_id ? 'selected' : '' }}>{{ $data->nama }}</option>
-                                    @endforeach
+                                <label for="isi" class="block text-gray-700 text-lg font-bold mb-2">Ubah Status:</label>
+                                <select id="status" name="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                                    <option value="0" {{ $pemesanan->status == 0 ? 'selected' : '' }}>Pending</option>
+                                    <option value="1" {{ $pemesanan->status == 1 ? 'selected' : '' }}>Confirmed</option>
+                                    <option value="2" {{ $pemesanan->status == 2 ? 'selected' : '' }}>Ongoing</option>
+                                    <option value="3" {{ $pemesanan->status == 3 ? 'selected' : '' }}>Done</option>
                                 </select>
                             </div>
                             <div class="mb-4">
-                                <label for="tanggal" class="block text-gray-700 text-lg font-bold mb-2">Masukan Tanggal:</label>
-                                <input type="date" id="tanggal" name="tanggal" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" require value="{{$berita->tanggal}}">
+                                <label for="catatan" class="block text-gray-700 text-lg font-bold mb-2">Tambah Catatan:</label>
+                                <input type="text" id="catatan" name="catatan" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    placeholder="lunas tanpa syarat" value="{{$pemesanan->catatan}}" required>
                             </div>
-                            <div class="mb-8">
-                                <label for="file_input" class="block text-gray-700 text-lg font-bold mb-2">Ganti Gambar(opsional) :</label>
-                                <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50"
-                                    id="file_input" type="file" name="gambar" accept=".png, .jpg, .jpeg">
+                            <div class="mb-4">
+                                <label for="foto" class="block text-gray-700 text-lg font-bold mb-2">Upload Gambar Dokumentasi:</label>
+                                <input name="foto[]" id="foto" type="file" multiple class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50" />
                             </div>
-                            <input type="hidden" name="kontributor" value="{{$berita->kontributor}}">
                             <div class="mb-4 w-full flex justify-center">
                                 <button type="submit"
                                     class="bg-[#1410EB] hover:bg-blue-700 text-white font-bold py-2 px-16 rounded focus:outline-none focus:shadow-outline">
-                                    Edit berita
+                                    Edit Status
                                 </button>
                             </div>
                         </div>

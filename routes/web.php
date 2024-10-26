@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\BiodataController;
 use App\Http\Controllers\ProfileController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\HeaderController;
 use App\Http\Controllers\PemesananController;
 use App\Http\Controllers\PriceController;
 use App\Http\Controllers\TestimoniController;
+use App\Http\Controllers\UsahaController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 
@@ -28,7 +30,7 @@ Route::get('gallery', [DashboardController::class, 'gallery'])->name('landing.ga
 Route::get('news', [DashboardController::class, 'news'])->name('landing.news');
 Route::get('news/{id}', [DashboardController::class, 'shownews'])->name('show.news');
 Route::get('faq/search', [DashboardController::class, 'searchfaq'])->name('search.faq');
-Route::get('news/search', [DashboardController::class, 'searchnews'])->name('search.news');
+Route::get('news/kategori/{id}', [DashboardController::class, 'kategorinews'])->name('kategori.news');
 
 Route::view('about', 'about')->name('landing.about');
 Route::view('shownews', 'shownews')->name('landing.shownews');
@@ -36,9 +38,7 @@ Route::view('product', 'product')->name('landing.product');
 // Route::view('gallery', 'gallery')->name('landing.gallery');
 Route::view('test', 'tes')->name('tes');
 
-Route::view('unverified', 'unverified')
-    ->middleware('auth')
-    ->name('unverified');
+Route::view('unverified', 'unverified')->name('unverified');
 
 Route::view('biodata', 'biodata')
     ->middleware('auth')
@@ -53,6 +53,8 @@ Route::middleware(['auth', 'verified', 'customer'])->group(function () {
 Route::middleware('auth')->group(function () {
     Route::view('unverified', 'unverified')->name('unverified');
     Route::resource('biodata', BiodataController::class);
+    Route::put('biodata/gambar/tambah/{id}', [BiodataController::class, 'updategambar'])->name('biodata.updategambar');
+    Route::delete('biodata/gambar/hapus/{id}', [BiodataController::class, 'hapusgambar'])->name('biodata.hapusgambar');
 });
 
 Route::view('dashadmin', 'admin.dashadmin')
@@ -72,7 +74,11 @@ Route::middleware(['auth', 'verified', 'admin.superadmin'])->group(function () {
     Route::resource('berita', BeritaController::class);
     Route::resource('price', PriceController::class);
     Route::resource('faqs', FaqController::class);
+    Route::resource('usaha', UsahaController::class);
     Route::view('project', 'admin.project')->name('admin.project');
+    Route::get('pesanan-user', [AdminController::class, 'pesanan'])->name('admin.pesanan');
+    Route::get('pesanan-user/{id}', [AdminController::class, 'pesananedit'])->name('admin.pesananedit');
+    Route::put('pesanan-user/status/{id}', [AdminController::class, 'pesananstatus'])->name('admin.pesananstatus');
 });
 
 Route::middleware('auth')->group(function () {

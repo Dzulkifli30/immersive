@@ -149,9 +149,9 @@ Table User - Super Admin
         <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
           <div class="p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent flex justify-between">
             <h6>User table</h6>
-            <button onclick="showPopup('tambah-feature')" class="cursor-pointer flex p-2 m-1 rounded-md items-center bg-[#1410EB] hover:bg-blue-700 text-white font-medium ">
+            <!-- <button onclick="showPopup('tambah-feature')" class="cursor-pointer flex p-2 m-1 rounded-md items-center bg-[#1410EB] hover:bg-blue-700 text-white font-medium ">
               <i class="fa fa-plus-circle pr-1" aria-hidden="true"></i> Tambah User
-            </button>
+            </button> -->
           </div>
           <div class="flex-auto px-0 pt-0 pb-2 items-center">
             <div class="p-0 overflow-x-auto">
@@ -208,7 +208,7 @@ Table User - Super Admin
                         <form action="{{ route('users.update', $data->id) }}" method="post" enctype="multipart/form-data">
                           @csrf
                           @method('PUT')
-                          @if ($data->verified != 1)
+                          @if ($data->verified == 0)
                           <input type="hidden" name="verified" value="1">
                           <button type="submit" class=" flex p-2 m-1 rounded-md items-center bg-gradient-to-r bg-green-600 hover:bg-green-500 text-white font-medium">
                             Approved

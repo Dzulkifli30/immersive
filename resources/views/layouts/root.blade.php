@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
   <meta charset="UTF-8" />
@@ -22,6 +22,26 @@
   <!-- Nepcha Analytics (nepcha.com) -->
   <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
   <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    function confirmDelete(index) {
+    Swal.fire({
+      title: 'Apakah Anda Yakin?',
+      text: "Data ini akan dihapus dan tidak dapat dikembalikan!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Ya, hapus!',
+      cancelButtonText: 'Batal'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        document.getElementById('deleteForm' + index).submit();
+      }
+    });
+  }
+  </script>
+
   @vite('resources/css/app.css')
   @stack('styles')
 </head>
@@ -55,15 +75,15 @@
     });
 
     function toggleFaq(popupId) {
-        var contentDiv = document.getElementById(popupId);
-        // var textElement = document.getElementById('text' + popupId.replace('content', ''));
+      var contentDiv = document.getElementById(popupId);
+      // var textElement = document.getElementById('text' + popupId.replace('content', ''));
 
-        // Toggle maxHeight for the accordion effect
-        if (contentDiv.style.maxHeight) {
-            contentDiv.style.maxHeight = null;
-        } else {
-            contentDiv.style.maxHeight = contentDiv.scrollHeight + "px";
-        }
+      // Toggle maxHeight for the accordion effect
+      if (contentDiv.style.maxHeight) {
+        contentDiv.style.maxHeight = null;
+      } else {
+        contentDiv.style.maxHeight = contentDiv.scrollHeight + "px";
+      }
 
     }
   </script>

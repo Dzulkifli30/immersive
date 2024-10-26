@@ -180,10 +180,10 @@ Faq - Admin
                         <a href="{{ route('faqs.edit', $data->id) }}" class="cursor-pointer flex p-2 m-1 rounded-md items-center bg-[#F96D0E] hover:bg-orange-600 text-white font-medium ">
                           <i class="fa fa-pencil pr-1" aria-hidden="true"></i> Edit
                         </a>
-                        <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('faqs.destroy', $data->id) }}" method="POST">
+                        <form id="deleteForm{{ $data->id }}" action="{{ route('faqs.destroy', $data->id) }}" method="POST">
                           @csrf
                           @method('DELETE')
-                          <button type="submit" class=" flex p-2 m-1 rounded-md items-center bg-gray-600 hover:bg-gray-700 text-white font-medium">
+                          <button type="button" onclick="confirmDelete('{{ $data->id }}')" class=" flex p-2 m-1 rounded-md items-center bg-gray-600 hover:bg-gray-700 text-white font-medium">
                             <i class="fa fa-trash-o pr-1" aria-hidden="true"></i> Hapus
                           </button>
                         </form>

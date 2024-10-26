@@ -9,7 +9,7 @@ class Pemesanan extends Model
 {
     protected $table = 'pemesanan';
 
-    protected $fillable = ['nama_event', 'jadwal_mulai', 'jadwal_berakhir', 'paket_id', 'status', 'total_harga', 'user_id'];
+    protected $fillable = ['nama_event', 'jadwal_mulai', 'jadwal_berakhir', 'paket_id', 'status', 'total_harga', 'user_id', 'catatan', 'foto', 'metode_pembayaran'];
 
     public function user()
     {

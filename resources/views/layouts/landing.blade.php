@@ -51,7 +51,7 @@
                 <!-- Modal header -->
                 <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
                     <h3 class="text-xl font-semibold text-gray-900">
-                        Sign in to our platform
+                        Sign in
                     </h3>
                     <button type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center" data-modal-hide="authentication-modal">
                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -63,14 +63,23 @@
                 <!-- Modal body -->
                 <div class="p-4 md:p-5">
                     <form action="{{ route('login') }}" method="POST" multipart class="space-y-5">
-                    @csrf
+                        @csrf
                         <div>
-                            <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Your email</label>
+                            <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
                             <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="name@company.com" required />
+                            @error('email')
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
                         </div>
-                        <div>
-                            <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Your password</label>
+                        <div class="relative">
+                            <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Password</label>
                             <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required />
+                            <span class="absolute right-3 top-9 cursor-pointer" onclick="togglePasswordVisibility()">
+                                <i id="eyeIcon" class="fa fa-eye-slash"></i>
+                            </span>
+                            @error('password')
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="flex justify-between">
                             <div class="flex items-start">
@@ -81,7 +90,7 @@
                             </div>
                             <a href="#" class="text-sm text-blue-700 hover:underline">Lost Password?</a>
                         </div>
-                        <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Login to your account</button>
+                        <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Login</button>
                         <div class="text-sm font-medium text-gray-500">
                             Not registered? <a href="{{ route('register') }}" class="text-blue-700 hover:underline">Create account</a>
                         </div>
@@ -119,6 +128,21 @@
             var profileMenu = document.getElementById('profileMenu');
             profileMenu.classList.toggle('hidden');
         });
+
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            const eyeIcon = document.getElementById('eyeIcon');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            }
+        }
     </script>
     @stack('scripts')
 </body>

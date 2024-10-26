@@ -12,7 +12,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = User::first()->paginate(5);
+        $user = User::where('role', '!=', 2)->latest()->paginate(5);
 
         return view('superadmin.usertable', compact('user'));
     }
@@ -38,7 +38,10 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        //render view with user
+        return view('superadmin.userdetail', compact('user'));
     }
 
     /**
@@ -59,13 +62,14 @@ class UserController extends Controller
         ]);
 
         $User = User::findOrFail($id);
+        
         if ($request->verified == 0) {
             $User->update([
-                'verified'     => 1,
+                'verified'     => 0,
             ]);
         } else {
             $User->update([
-                'verified'     => 0,
+                'verified'     => 1,
             ]);
         }
 
