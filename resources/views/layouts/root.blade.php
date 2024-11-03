@@ -25,21 +25,21 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
     function confirmDelete(index) {
-    Swal.fire({
-      title: 'Apakah Anda Yakin?',
-      text: "Data ini akan dihapus dan tidak dapat dikembalikan!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Ya, hapus!',
-      cancelButtonText: 'Batal'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        document.getElementById('deleteForm' + index).submit();
-      }
-    });
-  }
+      Swal.fire({
+        title: 'Apakah Anda Yakin?',
+        text: "Data ini akan dihapus dan tidak dapat dikembalikan!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3C3D37',
+        confirmButtonText: 'Ya, hapus!',
+        cancelButtonText: 'Batal'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          document.getElementById('deleteForm' + index).submit();
+        }
+      });
+    }
   </script>
 
   @vite('resources/css/app.css')
@@ -50,6 +50,17 @@
   @yield('content')
 
   @stack('scripts')
+  @if(session('success'))
+  <script>
+    Swal.fire({
+      icon: 'success',
+      title: 'Success!',
+      text: '{{ session("success") }}',
+      showConfirmButton: false,
+      timer: 1500
+    });
+  </script>
+  @endif
   <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
   <script src="{{ asset('assets/js/plugins/chartjs.min.js')}}" async></script>
   <script src="{{ asset('assets/js/plugins/perfect-scrollbar.min.js')}}" async></script>

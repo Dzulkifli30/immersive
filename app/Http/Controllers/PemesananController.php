@@ -136,4 +136,71 @@ class PemesananController extends Controller
         //redirect to index
         return redirect()->route('pemesanan.index')->with(['success' => 'Data Berhasil Dihapus!']);
     }
+
+    public function updategambar(Request $request, string $id)
+    {
+        $request->validate([
+            'foto.*' => 'required', // Validasi foto
+        ]);
+
+        // Temukan data biodata berdasarkan ID
+        $pemesanan = Pemesanan::findOrFail($id);
+
+        // Ambil foto yang sudah ada di database, decode dari JSON menjadi array
+        $existingImages = json_decode($pemesanan->foto, true) ?? [];
+
+        $newImages = []; // Array untuk menyimpan foto baru
+
+        // Periksa apakah ada file foto yang di-upload
+        if ($request->hasFile('foto')) {
+            foreach ($request->file('foto') as $foto) {
+                // Upload foto dan simpan file di storage
+                $foto->storeAs('public/uploads', $foto->hashName());
+
+                // Tambahkan nama file baru ke array newImages
+                $newImages[] = $foto->hashName();
+            }
+        }
+
+        // Gabungkan foto lama dengan yang baru
+        $allImages = array_merge($existingImages, $newImages);
+
+        // Update foto di database dengan gabungan foto lama dan baru
+        $pemesanan->update([
+            'foto' => json_encode($allImages),
+        ]);
+
+        return back()->with(['success' => 'Berhasil Menambah foto!']);
+    }
+
+    public function hapusgambar(Request $request, string $id)
+    {
+        $request->validate([
+            'foto' => 'required|string', // Nama foto yang akan dihapus harus diberikan
+        ]);
+
+        // Temukan data biodata berdasarkan ID
+        $pemesanan = Pemesanan::findOrFail($id);
+
+        // Ambil foto yang sudah ada di database, decode dari JSON menjadi array
+        $existingImages = json_decode($pemesanan->foto, true) ?? [];
+
+        // Cek apakah foto yang akan dihapus ada di array existingImages
+        if (($key = array_search($request->foto, $existingImages)) !== false) {
+            // Hapus file foto dari storage
+            Storage::delete('public/uploads/' . $request->foto);
+
+            // Hapus foto dari array existingImages
+            unset($existingImages[$key]);
+
+            // Update foto di database setelah dihapus
+            $pemesanan->update([
+                'foto' => json_encode(array_values($existingImages)), // array_values untuk reset index array
+            ]);
+
+            return back()->with(['success' => 'Gambar berhasil dihapus!']);
+        }
+
+        return back()->with(['error' => 'Gambar tidak ditemukan!']);
+    }
 }

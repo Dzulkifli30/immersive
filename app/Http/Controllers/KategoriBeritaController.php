@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Usaha;
+use App\Models\KategoriBerita;
 use Illuminate\Http\Request;
 
-class UsahaController extends Controller
+class KategoriBeritaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $usaha = Usaha::latest()->paginate(5);
+        $kategori = KategoriBerita::latest()->paginate(5);
 
-        return view('admin.usaha', compact('usaha'));
+        return view('admin.kategori', compact('kategori'));
     }
 
     /**
@@ -31,14 +31,14 @@ class UsahaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'bidang_usaha'     => 'required',
+            'nama'     => 'required',
         ]);
 
-        Usaha::create([
-            'bidang_usaha'     => $request->bidang_usaha,
+        KategoriBerita::create([
+            'nama'     => $request->nama,
         ]);
 
-        return redirect()->route('usaha.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        return redirect()->route('kategori.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
 
     /**
@@ -54,10 +54,10 @@ class UsahaController extends Controller
      */
     public function edit(string $id)
     {
-        $usaha = Usaha::findOrFail($id);
+        $kategori = KategoriBerita::findOrFail($id);
 
-        //render view with usaha
-        return view('admin.usahaedit', compact('usaha'));
+        //render view with kategori
+        return view('admin.kategoriedit', compact('kategori'));
     }
 
     /**
@@ -66,16 +66,16 @@ class UsahaController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'bidang_usaha'     => 'required',
+            'nama'     => 'required',
         ]);
 
-        $usaha = Usaha::findOrFail($id);
+        $kategori = KategoriBerita::findOrFail($id);
 
-        $usaha->update([
-            'bidang_usaha'     => $request->bidang_usaha,
+        $kategori->update([
+            'nama'     => $request->nama,
         ]);
 
-        return redirect()->route('usaha.index')->with(['success' => 'Data Berhasil Diperbarui!']);
+        return redirect()->route('kategori.index')->with(['success' => 'Data Berhasil Diperbarui!']);
     }
 
     /**
@@ -83,12 +83,12 @@ class UsahaController extends Controller
      */
     public function destroy(string $id)
     {
-        $usaha = Usaha::findOrFail($id);
+        $kategori = KategoriBerita::findOrFail($id);
 
-        //delete usaha
-        $usaha->delete();
+        //delete kategori
+        $kategori->delete();
 
         //redirect to index
-        return redirect()->route('usaha.index')->with(['success' => 'Data Berhasil Dihapus!']);
+        return redirect()->route('kategori.index')->with(['success' => 'Data Berhasil Dihapus!']);
     }
 }

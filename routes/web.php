@@ -8,7 +8,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\FeaturesController;
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HeaderController;
+use App\Http\Controllers\KategoriBeritaController;
 use App\Http\Controllers\PemesananController;
 use App\Http\Controllers\PriceController;
 use App\Http\Controllers\TestimoniController;
@@ -46,6 +48,8 @@ Route::view('biodata', 'biodata')
 
 Route::middleware(['auth', 'verified', 'customer'])->group(function () {
     Route::resource('pemesanan', PemesananController::class);
+    Route::put('pemesanan/gambar/{id}/tambah', [PemesananController::class, 'updategambar'])->name('pemesanan.tambahgambar');
+    Route::delete('pemesanan/gambar/{id}/hapus', [PemesananController::class, 'hapusgambar'])->name('pemesanan.hapusgambar');
     Route::view('dashboard', 'customer.dashboard')->name('dashboard');
     // Route::view('product-user', 'customer.productuser')->name('user.product');
 });
@@ -75,10 +79,13 @@ Route::middleware(['auth', 'verified', 'admin.superadmin'])->group(function () {
     Route::resource('price', PriceController::class);
     Route::resource('faqs', FaqController::class);
     Route::resource('usaha', UsahaController::class);
-    Route::view('project', 'admin.project')->name('admin.project');
+    Route::resource('kategori', KategoriBeritaController::class);
+    Route::resource('gallerys', GalleryController::class);
     Route::get('pesanan-user', [AdminController::class, 'pesanan'])->name('admin.pesanan');
     Route::get('pesanan-user/{id}', [AdminController::class, 'pesananedit'])->name('admin.pesananedit');
     Route::put('pesanan-user/status/{id}', [AdminController::class, 'pesananstatus'])->name('admin.pesananstatus');
+    Route::put('pesanan-user/gambar/{id}/tambah', [AdminController::class, 'updategambar'])->name('admin.tambahgambar');
+    Route::delete('pesanan-user/gambar/{id}/hapus', [AdminController::class, 'hapusgambar'])->name('admin.hapusgambar');
 });
 
 Route::middleware('auth')->group(function () {

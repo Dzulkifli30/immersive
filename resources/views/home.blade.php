@@ -13,7 +13,7 @@ Beranda - Immersive
         <div class="mb-16 lg:mt-32 xl:mt-40 xl:mr-12">
             <h1 class="h1-large mb-5">{{ $header->judul }}</h1>
             <p class="p-large mb-8">{{ $header->subjudul }}</p>
-            <a class="btn-solid-lg bg-[#1410EB] hover:border-[#1410EB] hover:text-[#1410EB]" href="{{ route('landing.about') }}">About Us</a>
+            <a class="btn-solid-lg bg-[#1410EB] hover:border-[#1410EB] hover:text-[#1410EB]" href="{{ route('login') }}">Try It</a>
             <!-- <a class="btn-solid-lg secondary" href="#your-link"><i class="fab fa-google-play"></i>Download</a> -->
         </div>
         <div class="xl:text-right">

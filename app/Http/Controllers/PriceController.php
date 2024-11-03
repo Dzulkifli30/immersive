@@ -95,6 +95,13 @@ class PriceController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        //get product by ID
+        $price = Pricing::findOrFail($id);
+
+        //delete price
+        $price->delete();
+
+        //redirect to index
+        return redirect()->route('price.index')->with(['success' => 'Data Berhasil Dihapus!']);
     }
 }

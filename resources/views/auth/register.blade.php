@@ -44,6 +44,7 @@ Register - daftar
                         @error('password_confirmation')
                         <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
+                        <span id="password-error" class="text-red-500 text-sm hidden">Passwords do not match</span>
                     </div>
                     <div class="mb-4 text-center">
                         <button class="inline-block w-full px-6 py-3 mt-6 mb-2 font-bold text-center text-white uppercase align-middle transition-all bg-transparent border-0 rounded-lg cursor-pointer active:opacity-85 hover:scale-102 hover:shadow-soft-xs leading-pro text-xs ease-soft-in tracking-tight-soft shadow-soft-md bg-150 bg-x-25 bg-gradient-to-t from-[#1410EB] to-[#1410EB] hover:border-slate-700 hover:bg-[#1410EB] hover:text-white">
@@ -63,7 +64,7 @@ Register - daftar
     function togglePasswordVisibility() {
         const passwordInput = document.getElementById('password');
         const eyeIcon = document.getElementById('eyeIcon');
-        
+
         if (passwordInput.type === 'password') {
             passwordInput.type = 'text';
             eyeIcon.classList.remove('fa-eye-slash');
@@ -74,5 +75,20 @@ Register - daftar
             eyeIcon.classList.add('fa-eye-slash');
         }
     }
+
+    const passwordField = document.getElementById("password");
+    const confirmPasswordField = document.getElementById("password_confirmation");
+    const errorText = document.getElementById("password-error");
+
+    function checkPasswordMatch() {
+        if (passwordField.value !== confirmPasswordField.value) {
+            errorText.classList.remove("hidden");
+        } else {
+            errorText.classList.add("hidden");
+        }
+    }
+
+    passwordField.addEventListener("input", checkPasswordMatch);
+    confirmPasswordField.addEventListener("input", checkPasswordMatch);
 </script>
 @endsection

@@ -1,7 +1,7 @@
 @extends('layouts.root')
 
 @section('title')
-Pricing - Admin
+Kategori Berita - Admin
 @endsection
 
 @section('content')
@@ -17,9 +17,8 @@ Pricing - Admin
           <li class="text-sm leading-normal">
             <a class="opacity-50 text-slate-700" href="javascript:;">Admin</a>
           </li>
-          <li class="text-sm pl-2 capitalize leading-normal text-slate-700 before:float-left before:pr-2 before:text-gray-600 before:content-['/']" aria-current="page">Landing</li>
+          <li class="text-sm pl-2 capitalize leading-normal text-slate-700 before:float-left before:pr-2 before:text-gray-600 before:content-['/']" aria-current="page">Kategori Berita</li>
         </ol>
-        <h6 class="mb-0 font-bold capitalize">Price table</h6>
       </nav>
 
       <div class="flex items-center mt-2 grow sm:mt-0 sm:mr-6 md:mr-0 lg:flex lg:basis-auto">
@@ -57,9 +56,9 @@ Pricing - Admin
       <div class="flex-none w-full max-w-full px-3">
         <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
           <div class="p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent flex justify-between">
-            <h6>Harga table</h6>
-            <button onclick="showPopup('tambah-price')" class="cursor-pointer flex p-2 m-1 rounded-md items-center bg-[#1410EB] hover:bg-blue-700 text-white font-medium ">
-              <i class="fa fa-plus-circle pr-1" aria-hidden="true"></i> Tambah Harga
+            <h6>Kategori Berita table</h6>
+            <button onclick="showPopup('tambah-usaha')" class="cursor-pointer flex p-2 m-1 rounded-md items-center bg-[#1410EB] hover:bg-blue-700 text-white font-medium ">
+              <i class="fa fa-plus-circle pr-1" aria-hidden="true"></i> Tambah Kategori Berita
             </button>
           </div>
           <div class="flex-auto px-0 pt-0 pb-2 items-center">
@@ -67,37 +66,24 @@ Pricing - Admin
               <table class="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
                 <thead class="align-bottom">
                   <tr>
-                    <th class="px-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Jenis</th>
-                    <th class="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Harga</th>
-                    <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Benefit</th>
+                    <th class="px-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Kategori Berita</th>
                     <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Action</th>
-                    <th class="px-6 py-3 font-semibold capitalize align-middle bg-transparent border-b border-gray-200 border-solid shadow-none tracking-none whitespace-nowrap text-slate-400 opacity-70"></th>
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach($price as $data)
+                  @foreach($kategori as $data)
                   <tr>
                     <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                       <div class=" px-4 ">
-                        <h6 class="mb-0 text-base leading-normal break-words">{{$data->jenis}}</h6>
-                      </div>
-                    </td>
-                    <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                      <div class="">
-                        <h6 class="mb-0 text-sm leading-normal break-words whitespace-normal">{{$data->harga}}.000</h6>
-                      </div>
-                    </td>
-                    <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                      <div class="">
-                        <h6 class="mb-0 text-sm leading-normal break-words whitespace-normal">{{$data->isi}}</h6>
+                        <h6 class="mb-0 text-base leading-normal break-words">{{$data->nama}}</h6>
                       </div>
                     </td>
                     <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                       <div class="flex justify-center">
-                        <a href="{{ route('price.edit', $data->id) }}" class="cursor-pointer flex p-2 m-1 rounded-md items-center bg-[#F96D0E] hover:bg-orange-600 text-white font-medium ">
+                        <a href="{{ route('kategori.edit', $data->id) }}" class="cursor-pointer flex p-2 m-1 rounded-md items-center bg-[#F96D0E] hover:bg-orange-600 text-white font-medium ">
                           <i class="fa fa-pencil pr-1" aria-hidden="true"></i> Edit
                         </a>
-                        <form id="deleteForm{{ $data->id }}" action="{{ route('price.destroy', $data->id) }}" method="POST">
+                        <form id="deleteForm{{ $data->id }}" action="{{ route('kategori.destroy', $data->id) }}" method="POST">
                           @csrf
                           @method('DELETE')
                           <button type="button" onclick="confirmDelete('{{ $data->id }}')" class=" flex p-2 m-1 rounded-md items-center bg-gray-600 hover:bg-gray-700 text-white font-medium">
@@ -120,30 +106,21 @@ Pricing - Admin
   <!-- end cards -->
 </main>
 
-<div id="tambah-price" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-50">
+<div id="tambah-usaha" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-50">
   <div
     class="max-h-[calc(100vh-5em)] h-fit w-1/2 max-w-screen-sm scale-90 overflow-y-auto overscroll-contain rounded-2xl bg-white  text-black shadow-2xl transition"
     for="">
     <div class="flex items-center justify-between p-3 px-6">
-      <h3 class="text-xl font-bold">Tambah Price</h3>
-      <button onclick="hidePopup('tambah-price')" class="text-black font-bold px-2 py-1 rounded bg-primary-red">X</button>
+      <h3 class="text-xl font-bold">Tambah Kategori Berita</h3>
+      <button onclick="hidePopup('tambah-usaha')" class="text-black font-bold px-2 py-1 rounded bg-primary-red">X</button>
     </div>
-    <form action="{{ route('price.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('kategori.store') }}" method="POST" enctype="multipart/form-data">
       @csrf
       <hr>
       <div class="p-6">
         <div class="mb-5">
-          <label for="jenis" class="block mb-2 text-base font-medium text-gray-900 ">Masukan Jenis</label>
-          <input type="text" id="jenis" name="jenis" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required />
-        </div>
-        <div class="mb-5">
-          <label for="harga" class="block mb-2 text-base font-medium text-gray-900 ">Masukan Harga setelah 3 digit</label>
-          <input type="number" id="harga" name="harga" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="50 untuk 50.000" required />
-        </div>
-        <div class="mb-5">
-          <label for="isi" class="block mb-2 text-base font-medium text-gray-900 ">Masukan isi</label>
-          <textarea id="isi" name="isi" rows="4" class="block p-2.5 w-full text-base text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-            placeholder="Masukan Isi" require></textarea>
+          <label for="nama" class="block mb-2 text-base font-medium text-gray-900 ">Nama Kategori</label>
+          <input type="text" id="nama" name="nama" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required />
         </div>
         <button type="submit" class="text-white bg-[#1410EB] hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-base w-full sm:w-auto px-5 py-2.5 text-center">Tambah</button>
       </div>

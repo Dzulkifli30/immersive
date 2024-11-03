@@ -90,6 +90,12 @@ class FaqController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $faq = Faq::findOrFail($id);
+
+        //delete faq
+        $faq->delete();
+
+        //redirect to index
+        return redirect()->route('faqs.index')->with(['success' => 'Data Berhasil Dihapus!']);
     }
 }
