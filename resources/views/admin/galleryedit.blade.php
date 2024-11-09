@@ -52,7 +52,7 @@ Edit Bidang usaha - Admin
   <!-- end Navbar -->
 
   <div class="px-10">
-    <a href="{{route('usaha.index')}}">
+    <a href="{{route('gallerys.index')}}">
       <p class="font-bold text-lg underline text-gray-700 hover:text-black">
         < Kembali</p>
     </a>
@@ -92,6 +92,80 @@ Edit Bidang usaha - Admin
       </div>
     </div>
     <!-- end cards -->
+     
+    <div class="max-w-lg lg:max-w-screen-lg w-full bg-white border border-gray-200 rounded-lg shadow mx-auto">
+            <!-- Trigger Div -->
+            <button onclick="toggleFaq('tambah-gambar')" class="w-full">
+                <div class="p-5 border border-gray-200 shadow rounded-lg flex lg:px-14 cursor-pointer justify-between">
+                    <p class="text-lg font-bold tracking-tight text-gray-900">Foto Dokumentasi</p>
+                    <div class="pt-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="black" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                        </svg>
+                    </div>
+                </div>
+            </button>
+
+            <!-- Content Div -->
+            <div id="tambah-gambar" class="max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                <div class="p-5 lg:px-8">
+                    <div class="flex-auto px-0 pt-0 pb-2 items-center">
+                        <form action="{{ route('gallerys.tambahgambar', $gallery->id) }}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+                            <div class="mb-4">
+                                <label for="images" class="block text-gray-700 text-lg font-bold mb-2">Tambah Gambar:</label>
+                                <div class="flex gap-4">
+                                    <input name="images[]" id="images" type="file" multiple class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50" />
+                                    <button type="submit"
+                                        class="w-1/6 bg-[#1410EB] text-sm hover:bg-blue-700 text-white font-bold py-2 px-3 rounded focus:outline-none focus:shadow-outline">
+                                        Tambah Gambar
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="p-0 overflow-x-auto">
+                            <table class="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
+                                <thead class="align-bottom">
+                                    <tr>
+                                        <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Gambar Produk</th>
+                                        <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if ($gallery->images)
+                                    @php
+                                    $images = json_decode($gallery->images, true);
+                                    @endphp
+                                    @foreach($images as $index => $data)
+                                    <tr>
+                                        <td class="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                            <div class="px-4 flex justify-center">
+                                                <img src="{{ asset('/storage/uploads/'.$data)}}" class="w-full max-w-lg" alt="">
+                                            </div>
+                                        </td>
+                                        <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                            <div class="flex justify-center">
+                                                <form id="deleteForm{{ $index }}" action="{{ route('gallerys.hapusgambar', $gallery->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <input type="hidden" name="images" value="{{ $data }}">
+                                                    <button type="button" onclick="confirmDelete('{{ $index }}')" class=" flex p-2 m-1 rounded-md items-center bg-gray-600 hover:bg-gray-700 text-white font-medium">
+                                                        <i class="fa fa-trash-o pr-1" aria-hidden="true"></i> Hapus
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                    @endif
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
   </div>
 </main>
 @endsection

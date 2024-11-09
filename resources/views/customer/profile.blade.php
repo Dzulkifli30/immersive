@@ -125,6 +125,54 @@ Profile - {{Auth::user()->name}}
         </div>
       </div>
 
+      <div class="max-w-lg lg:max-w-screen-lg w-full bg-white border border-gray-200 rounded-lg shadow mx-auto">
+        <!-- Trigger Div -->
+        <button onclick="toggleFaq('change-password')" class="w-full">
+          <div class="p-5 border border-gray-200 shadow rounded-lg flex lg:px-14 cursor-pointer justify-between">
+            <p class="text-lg font-bold tracking-tight text-gray-900">Ganti Password</p>
+            <div class="pt-1">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="black" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+              </svg>
+            </div>
+          </div>
+        </button>
+
+        <!-- Content Div -->
+        <div id="change-password" class="max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+          <div class="p-5 lg:px-8">
+            <form action="{{ route('biodata.changepassword') }}" method="POST">
+              @csrf
+              <hr>
+              <div class="p-6 w-1/2">
+                <div class="mb-5">
+                  <label for="old_password" class="block mb-2 text-base font-medium text-gray-900 ">Enter Old Password:</label>
+                  <input type="password" id="old_password" name="old_password" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required />
+                  @error('current_password')
+                    <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
+                  @enderror
+                </div>
+              </div>
+              <div class="p-6 grid grid-cols-2 lg:gap-x-8 gap-2">
+                <div class="mb-5">
+                  <label for="new_password" class="block mb-2 text-base font-medium text-gray-900 ">Enter New Password:</label>
+                  <input type="password" id="new_password" name="new_password" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required />
+                  @error('new_password')
+                    <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
+                  @enderror
+                </div>
+                <div class="mb-5">
+                  <label for="new_password_confirmation" class="block mb-2 text-base font-medium text-gray-900 ">Confirmation Password:</label>
+                  <input type="password" id="new_password_confirmation" name="new_password_confirmation" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required />
+                </div>
+              </div>
+              <div class="w-full flex justify-center">
+                <button type="submit" class="text-white bg-[#1410EB] hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-base w-full max-w-xs px-5 py-2.5 text-center">Ganti Password</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
       @if ($biodata->user->role == 0)
       <div class="max-w-lg lg:max-w-screen-lg w-full bg-white border border-gray-200 rounded-lg shadow mx-auto">
         <!-- Trigger Div -->
@@ -204,6 +252,6 @@ Profile - {{Auth::user()->name}}
   </div>
 </main>
 <script>
-  
+
 </script>
 @endsection

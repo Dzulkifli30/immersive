@@ -138,7 +138,7 @@ Gallery - Admin
                         placeholder="Masukan Isi" require></textarea>
                 </div>
                 <div class="mb-5">
-                    <label for="foto" class="block mb-2 text-base font-medium text-gray-900 ">Masukan Gambar (minimal 3)</label>
+                    <label for="foto" class="block mb-2 text-base font-medium text-gray-900 ">Masukan Gambar (usahakan resolusi gambar 1x1)</label>
                     <input type="file" id="foto" name="foto[]" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full" required />
                 </div>
                 <button type="submit" class="text-white bg-[#1410EB] hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-base w-full sm:w-auto px-5 py-2.5 text-center">Tambah</button>

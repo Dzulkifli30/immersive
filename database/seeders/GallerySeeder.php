@@ -15,8 +15,8 @@ class GallerySeeder extends Seeder
     {
         $gallerys = [
             [
-                'customer' => 'Politeknik No 1 di Indonesia',
-                'deskripsi' => 'customer no 1 Se Indonesia',
+                'customer' => 'PoliteknikElektronika Negeri Surabaya',
+                'deskripsi' => 'Poltek no 1 Se Indonesia',
                 'images' => json_encode([
                     'image1.jpg',
                     'image2.jpg',
@@ -24,8 +24,8 @@ class GallerySeeder extends Seeder
                 ]),
             ],
             [
-                'customer' => 'yang kedua g tau dah',
-                'deskripsi' => 'emang runner up dianggap',
+                'customer' => 'RRQ',
+                'deskripsi' => 'juara runner up',
                 'images' => json_encode([
                     'image4.jpg',
                     'image5.jpg',
@@ -33,8 +33,8 @@ class GallerySeeder extends Seeder
                 ]),
             ],
             [
-                'customer' => 'Evos Mau bangkrut',
-                'deskripsi' => 'tevos tevos disini wleeeeee......',
+                'customer' => 'Evos',
+                'deskripsi' => 'evoe evos disini......',
                 'images' => json_encode([
                     'image3.jpg',
                     'image4.jpg',

@@ -24,13 +24,13 @@ Gallery - Immersive
 
             <div id="default-carousel" class="relative w-full" data-carousel="slide">
                 <!-- Carousel wrapper -->
-                <div class="relative overflow-hidden rounded-lg h-60 md:h-48 lg:h-80">
+                <div class="relative overflow-hidden rounded-lg h-60 md:h-48 lg:h-[22rem] xl:h-[35rem]">
                     @php
                     $images = json_decode($data->images, true);
                     @endphp
                     @foreach($images as $image)
                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                        <img src="{{ asset('/storage/uploads/'.$image) }}" class="h-fit absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+                        <img src="{{ asset('/storage/uploads/'.$image) }}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
                     </div>
                     @endforeach
                 </div>

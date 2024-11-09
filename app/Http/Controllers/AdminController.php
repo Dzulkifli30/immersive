@@ -132,4 +132,21 @@ class AdminController extends Controller
         return back()->with(['error' => 'Gambar tidak ditemukan!']);
     }
 
+    public function hapuspemesanan(string $id)
+    {
+        $pemesanan = Pemesanan::findOrFail($id);
+
+        $existingImages = json_decode($pemesanan->foto, true) ?? [];
+
+        // Hapus semua file images dari storage
+        foreach ($existingImages as $image) {
+            Storage::delete('public/uploads/' . $image);
+        }
+        //delete peme$pemesanan
+        $pemesanan->delete();
+
+        //redirect to index
+        return redirect()->route('admin.pemesanan')->with(['success' => 'Data Berhasil Dihapus!']);
+    }
+    
 }

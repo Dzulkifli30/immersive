@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Gallery;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class GalleryController extends Controller
 {
@@ -35,7 +36,7 @@ class GalleryController extends Controller
             'deskripsi'          => 'required',
             'foto.'       => 'required',
         ]);
-        
+
         $images = [];
 
         if ($request->hasFile('foto')) {
@@ -101,6 +102,84 @@ class GalleryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $gallery = Gallery::findOrFail($id);
+
+        $existingImages = json_decode($gallery->images, true) ?? [];
+
+        // Hapus semua file images dari storage
+        foreach ($existingImages as $image) {
+            Storage::delete('public/uploads/' . $image);
+        }
+        //delete gallery
+        $gallery->delete();
+
+        //redirect to index
+        return redirect()->route('gallerys.index')->with(['success' => 'Data Berhasil Dihapus!']);
+    }
+    public function updategambar(Request $request, string $id)
+    {
+        $request->validate([
+            'images.*' => 'required', // Validasi images
+        ]);
+
+        // Temukan data biodata berdasarkan ID
+        $gallery = Gallery::findOrFail($id);
+
+        // Ambil images yang sudah ada di database, decode dari JSON menjadi array
+        $existingImages = json_decode($gallery->images, true) ?? [];
+
+        $newImages = []; // Array untuk menyimpan images baru
+
+        // Periksa apakah ada file images yang di-upload
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $images) {
+                // Upload images dan simpan file di storage
+                $images->storeAs('public/uploads', $images->hashName());
+
+                // Tambahkan nama file baru ke array newImages
+                $newImages[] = $images->hashName();
+            }
+        }
+
+        // Gabungkan images lama dengan yang baru
+        $allImages = array_merge($existingImages, $newImages);
+
+        // Update images di database dengan gabungan images lama dan baru
+        $gallery->update([
+            'images' => json_encode($allImages),
+        ]);
+
+        return back()->with(['success' => 'Berhasil Menambah images!']);
+    }
+
+    public function hapusgambar(Request $request, string $id)
+    {
+        $request->validate([
+            'images' => 'required|string', // Nama images yang akan dihapus harus diberikan
+        ]);
+
+        // Temukan data biodata berdasarkan ID
+        $gallery = Gallery::findOrFail($id);
+
+        // Ambil images yang sudah ada di database, decode dari JSON menjadi array
+        $existingImages = json_decode($gallery->images, true) ?? [];
+
+        // Cek apakah images yang akan dihapus ada di array existingImages
+        if (($key = array_search($request->images, $existingImages)) !== false) {
+            // Hapus file images dari storage
+            Storage::delete('public/uploads/' . $request->images);
+
+            // Hapus images dari array existingImages
+            unset($existingImages[$key]);
+
+            // Update images di database setelah dihapus
+            $gallery->update([
+                'images' => json_encode(array_values($existingImages)), // array_values untuk reset index array
+            ]);
+
+            return back()->with(['success' => 'Gambar berhasil dihapus!']);
+        }
+
+        return back()->with(['error' => 'Gambar tidak ditemukan!']);
     }
 }

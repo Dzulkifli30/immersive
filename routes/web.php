@@ -59,6 +59,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('biodata', BiodataController::class);
     Route::put('biodata/gambar/tambah/{id}', [BiodataController::class, 'updategambar'])->name('biodata.updategambar');
     Route::delete('biodata/gambar/hapus/{id}', [BiodataController::class, 'hapusgambar'])->name('biodata.hapusgambar');
+    Route::post('biodata/changepassword', [BiodataController::class, 'changePassword'])->name('biodata.changepassword');
 });
 
 Route::view('dashadmin', 'admin.dashadmin')
@@ -81,11 +82,14 @@ Route::middleware(['auth', 'verified', 'admin.superadmin'])->group(function () {
     Route::resource('usaha', UsahaController::class);
     Route::resource('kategori', KategoriBeritaController::class);
     Route::resource('gallerys', GalleryController::class);
+    Route::put('gallerys/gambar/{id}/tambah', [GalleryController::class, 'updategambar'])->name('gallerys.tambahgambar');
+    Route::delete('gallerys/gambar/{id}/hapus', [GalleryController::class, 'hapusgambar'])->name('gallerys.hapusgambar');
     Route::get('pesanan-user', [AdminController::class, 'pesanan'])->name('admin.pesanan');
     Route::get('pesanan-user/{id}', [AdminController::class, 'pesananedit'])->name('admin.pesananedit');
     Route::put('pesanan-user/status/{id}', [AdminController::class, 'pesananstatus'])->name('admin.pesananstatus');
     Route::put('pesanan-user/gambar/{id}/tambah', [AdminController::class, 'updategambar'])->name('admin.tambahgambar');
     Route::delete('pesanan-user/gambar/{id}/hapus', [AdminController::class, 'hapusgambar'])->name('admin.hapusgambar');
+    Route::delete('pesanan-user/{id}/hapus', [AdminController::class, 'hapuspemesanan'])->name('admin.hapuspemesanan');
 });
 
 Route::middleware('auth')->group(function () {

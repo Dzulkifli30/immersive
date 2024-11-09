@@ -6,6 +6,8 @@ use App\Models\Biodata;
 use App\Models\Usaha;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class BiodataController extends Controller
@@ -85,6 +87,8 @@ class BiodataController extends Controller
         $biodata = Biodata::findOrFail($id);
         $usaha = Usaha::all();
 
+        
+
         //render view with biodata
         return view('customer.profile', compact('biodata', 'usaha'));
     }
@@ -107,10 +111,10 @@ class BiodataController extends Controller
         $user = User::findOrFail($biodata->user_id);
 
         $biodata->update([
-            'nama_usaha'   => $request->nama_usaha,
-            'bidang_usaha_id' => $request->bidang_usaha_id,
-            'alamat'       => $request->alamat,
-            'nomor_telpon' => $request->nomor_telpon,
+            'nama_usaha'        => $request->nama_usaha,
+            'bidang_usaha_id'   => $request->bidang_usaha_id,
+            'alamat'            => $request->alamat,
+            'nomor_telpon'      => $request->nomor_telpon,
         ]);
 
         $user->update([
@@ -194,5 +198,29 @@ class BiodataController extends Controller
         }
 
         return back()->with(['error' => 'Gambar tidak ditemukan!']);
+    }
+
+    public function changePassword(Request $request)
+    {
+        // Validasi input
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|min:8|confirmed', // confirmed akan memverifikasi 'new_password_confirmation'
+        ]);
+
+        // Ambil user yang sedang login
+        $user = User::findOrFail(Auth::user()->id);
+
+        // Cek apakah password lama cocok
+        if (!Hash::check($request->old_password, $user->password)) {
+            return back()->withErrors(['old_password' => 'Password lama tidak sesuai.']);
+        }
+
+        // Update password dengan password baru
+        $user->update([
+            'password'   => Hash::make($request->new_password),
+        ]);
+
+        return back()->with('success', 'Password berhasil diubah!');
     }
 }
